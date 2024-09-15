@@ -1,34 +1,36 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
-
-import java.sql.DriverManager;
 import java.sql.Connection;
-/**
- *
- * @author Admin
- */
-public class DBContext {
-    
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-     public Connection getConnection()throws Exception {
-        String url = "jdbc:sqlserver://"+serverName+":"+portNumber + "\\" + instance +";databaseName="+dbName+";encrypt=true;trustServerCertificate=true";
-        if(instance == null || instance.trim().isEmpty())
-            url = "jdbc:mysql://"+serverName+":"+portNumber +";databaseName="+dbName+";encrypt=true;trustServerCertificate=true";
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection(url, userID, password);
-    }   
-   
-  
+public class DBContext {
+
+    // Configuration for MySQL connection
     private final String serverName = "localhost";
     private final String dbName = "swp-online-shop";
-    private final String portNumber = "3306";
-    private final String instance="";
-    private final String userID = "root";
-    private final String password = "root";    
-    
-}
+    private final String portNumber = "3306"; // Default MySQL port
+    private final String userID = "sa"; // Replace with your MySQL username
+    private final String password = "123"; // Replace with your MySQL password
 
+    // Method to establish a database connection
+    public Connection getConnection() {
+        Connection conn = null;
+        String url = "jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName + "?useSSL=false&serverTimezone=UTC";
+
+        try {
+            // Load MySQL JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Establish the connection
+            conn = DriverManager.getConnection(url, userID, password);
+        } catch (ClassNotFoundException e) {
+            System.err.println("MySQL JDBC Driver not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Failed to establish a connection to the MySQL database.");
+            e.printStackTrace();
+        }
+
+        return conn;
+    }
+}

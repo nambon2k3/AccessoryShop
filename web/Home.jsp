@@ -1,241 +1,374 @@
 <%-- 
-    Document   : Home
-    Created on : Sep 7, 2024, 1:03:52 PM
-    Author     : Legion
+    Document   : newjsp
+    Created on : Sep 14, 2024, 4:59:23 PM
+    Author     : MSI
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelance Job Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/home-style.css">
-</head>
-<body>
-    <!-- Header Section -->
-    <header class="bg-dark text-white">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center py-3">
-                <div class="logo">
-                    <h1>FreelanceJobs</h1>
-                </div>
-                <nav class="d-none d-md-block">
-                    <ul class="nav">
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Find Jobs</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Post a Job</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">How It Works</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#">Contact Us</a></li>
-                    </ul>
-                </nav>
-                <div>
-                    <a href="login" class="btn btn-outline-light me-2">Sign In</a>
-                    <a href="#" class="btn btn-primary">Register</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Material Design for Bootstrap</title>
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.11.2/css/all.css"
+            />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+            />
 
-    <!-- Hero Section -->
-    <section class="hero bg-primary text-white text-center py-5">
-        <div class="container">
-            <h1>Find the Right Freelancer for Your Project</h1>
-            <p class="lead">Connecting you with top talent for your next project</p>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search for jobs or freelancers..." aria-label="Search">
-                        <button class="btn btn-dark" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- MDB -->
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.min.css"
+            rel="stylesheet"
+            />
+        <!-- Custom styles -->
+        <style>
+            .icon-hover:hover {
+                border-color: #3b71ca !important;
+                background-color: white !important;
+            }
 
-    <!-- Featured Categories -->
-    <section class="categories py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">Explore Popular Categories</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-code-slash display-4"></i>
-                            <h5 class="card-title mt-3">Web Development</h5>
-                            <a href="#" class="stretched-link"></a>
+            .icon-hover:hover i {
+                color: #3b71ca !important;
+            }
+        </style>
+    </head>
+    <body>
+        <!--Main Navigation-->
+        <header>
+            <!-- Jumbotron -->
+            <div class="p-3 text-center bg-white border-bottom">
+                <div class="container">
+                    <div class="row gy-3">
+                        <!-- Left elements -->
+                        <div class="col-lg-2 col-sm-4 col-4">
+                            <a
+                                href="home"
+                                class="float-start"
+                                >
+                                <img
+                                    src="Image/logo.png"
+                                    height="35"
+                                    />
+                            </a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-palette display-4"></i>
-                            <h5 class="card-title mt-3">Design & Creative</h5>
-                            <a href="#" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-pen display-4"></i>
-                            <h5 class="card-title mt-3">Writing & Translation</h5>
-                            <a href="#" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="bi bi-bar-chart-line display-4"></i>
-                            <h5 class="card-title mt-3">Sales & Marketing</h5>
-                            <a href="#" class="stretched-link"></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                        <!-- Left elements -->
 
-    <!-- Latest Jobs -->
-    <section class="latest-jobs py-5 bg-light">
-        <div class="container">
-            <h2 class="text-center mb-4">Latest Jobs</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Frontend Developer</h5>
-                            <p class="card-text">Company XYZ - Remote</p>
-                            <p class="card-text">Salary: $60,000 - $80,000/year</p>
-                            <a href="#" class="btn btn-primary">Apply Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Graphic Designer</h5>
-                            <p class="card-text">DesignStudio - New York, NY</p>
-                            <p class="card-text">Salary: $50,000 - $70,000/year</p>
-                            <a href="#" class="btn btn-primary">Apply Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">Content Writer</h5>
-                            <p class="card-text">ContentWorld - San Francisco, CA</p>
-                            <p class="card-text">Salary: $40,000 - $60,000/year</p>
-                            <a href="#" class="btn btn-primary">Apply Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-outline-primary">View All Jobs</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">What Our Users Say</h2>
-            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row justify-content-center">
-                            <div class="col-md-8">
-                                <div class="testimonial text-center">
-                                    <p class="lead">"FreelanceJobs helped me find the perfect freelancer for my project. The process was smooth and efficient!"</p>
-                                    <p>- Jane Doe, CEO of Company XYZ</p>
-                                </div>
+                        <!-- Center elements -->
+                        <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+                            <div class="d-flex float-end">
+                                <a
+                                    href="${pageContext.request.contextPath}/login"
+                                    class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
+                                    >
+                                    <i class="fas fa-user-alt m-1 me-md-2"></i>
+                                    <p class="d-none d-md-block mb-0">Login</p>
+                                </a>
+                                <a
+                                    href="https://github.com/mdbootstrap/bootstrap-material-design"
+                                    class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
+                                    target="_blank"
+                                    >
+                                    <i class="fas fa-heart m-1 me-md-2"></i>
+                                    <p class="d-none d-md-block mb-0">Wishlist</p>
+                                </a>
+                                <a
+                                    href="https://github.com/mdbootstrap/bootstrap-material-design"
+                                    class="border rounded py-1 px-3 nav-link d-flex align-items-center"
+                                    target="_blank"
+                                    >
+                                    <i class="fas fa-shopping-cart m-1 me-md-2"></i>
+                                    <p class="d-none d-md-block mb-0">My cart</p>
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row justify-content-center">
-                            <div class="col-md-8">
-                                <div class="testimonial text-center">
-                                    <p class="lead">"As a freelancer, I've found amazing opportunities through this platform. It's a game-changer!"</p>
-                                    <p>- John Smith, Freelance Developer</p>
+                        <!-- Center elements -->
+
+                        <!-- Right elements -->
+                        <div class="col-lg-5 col-md-12 col-12">
+                            <div class="input-group float-center">
+                                <div class="form-outline">
+                                    <input type="search" id="form1" class="form-control" />
+                                    <label class="form-label" for="form1">Search</label>
                                 </div>
+                                <button type="button" class="btn btn-primary shadow-0">
+                                    <i class="fas fa-search"></i>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row justify-content-center">
-                            <div class="col-md-8">
-                                <div class="testimonial text-center">
-                                    <p class="lead">"The user interface is intuitive, and the support team is always there to help. Highly recommend!"</p>
-                                    <p>- Sarah Lee, Marketing Consultant</p>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Right elements -->
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#testimonialCarousel" role="button" data-bs-slide="prev">
+            </div>
+            <!-- Jumbotron -->
+
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                <!-- Container wrapper -->
+                <div
+                    class="container justify-content-center justify-content-md-between"
+                    >
+                    <!-- Toggle button -->
+                    <button
+                        class="navbar-toggler border py-2 text-dark"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarLeftAlignExample"
+                        aria-controls="navbarLeftAlignExample"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                        >
+                        <i class="fas fa-bars"></i>
+                    </button>
+
+                    <!-- Collapsible wrapper -->
+
+                </div>
+                <!-- Container wrapper -->
+            </nav>
+            <!-- Navbar -->
+            <!-- Carousel wrapper -->
+            <div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel" data-mdb-carousel-init>
+                <!-- Indicators -->
+                <div class="carousel-indicators">
+                    <c:forEach var="slider" items="${sliders}" varStatus="status">
+                        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="${status.index}" 
+                                class="${status.index == 0 ? 'active' : ''}" aria-label="Slide ${status.index}"></button>
+                    </c:forEach>
+                </div>
+
+                <!-- Inner -->
+                <div class="carousel-inner rounded-5 shadow-4-strong">
+                    <c:forEach var="slider" items="${sliders}" varStatus="status">
+                        <!-- Single item -->
+                        <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+                            <img src="${slider.imageUrl}" class="d-block w-100" alt="..." />
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>${slider.title}</h5>
+                                <p>${slider.notes}</p>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+                <!-- Inner -->
+
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#testimonialCarousel" role="button" data-bs-slide="next">
+                </button>
+                <button class="carousel-control-next" type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
-                </a>
+                </button>
             </div>
-        </div>
-    </section>
 
-    <!-- Call to Action -->
-    <section class="cta py-5 bg-primary text-white text-center">
-        <div class="container">
-            <h2>Ready to Get Started?</h2>
-            <p class="lead">Join FreelanceJobs today and take the first step towards success!</p>
-            <a href="#" class="btn btn-outline-light btn-lg">Join Now</a>
-        </div>
-    </section>
+            <!-- Carousel wrapper -->
+        </header>
+        <!-- Products -->
+        <section>
+            <div class="container my-5">
+                <header class="mb-4 d-flex justify-content-between align-items-center">
+                    <h3>New products</h3>
+                    <a href="public/list-product" class="btn btn-link text-primary">See more</a>
+                </header>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>About Us</h5>
-                    <p>FreelanceJobs is a platform that connects talented freelancers with clients looking for quality work.</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Find Jobs</a></li>
-                        <li><a href="#" class="text-white">Post a Job</a></li>
-                        <li><a href="#" class="text-white">How It Works</a></li>
-                        <li><a href="#" class="text-white">Categories</a></li>
-                        <li><a href="#" class="text-white">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contact Us</h5>
-                    <address>
-                        <strong>FreelanceJobs</strong><br>
-                        1234 Street Name<br>
-                        City, State, ZIP<br>
-                        <a href="mailto:support@freelancejobs.com" class="text-white">support@freelancejobs.com</a>
-                    </address>
+                <div class="row">
+                    <c:forEach items="${products}" var="p">
+
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="card my-2 shadow-0">
+                                <a href="public/product-detail?id=${p.productID}" class="">
+                                    <c:if test="${p.productDetails[0].discount != null && p.productDetails[0].discount != 0}">
+                                        <div class="mask" style="height: 50px;">
+                                            <div class="d-flex justify-content-start align-items-start h-100 m-2">
+                                                <h6><span class="badge bg-danger pt-1">New</span></h6>
+                                            </div>
+                                        </div>
+                                    </c:if>
+
+                                    <img src="${p.productDetails[0].imageURL}" class="card-img-top rounded-2" style="aspect-ratio: 1 / 1"/>
+                                </a>
+                                <div class="card-body p-0 pt-3">
+                                    <h5 class="card-title">${p.productName}</h5>
+                                    <p class="card-text mb-0">${p.productDetails[0].price}</p>
+                                    <!--                                <p class="text-muted">
+                                                                        Model: X-200
+                                                                    </p>-->
+                                    <div
+                                        class="card-footer d-flex align-items-end pt-3 px-0 pb-0 mt-auto"
+                                        >
+                                        <a href="public/product-detail?id=${p.productID}" class="btn btn-primary shadow-0 me-1">View detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </c:forEach>
+
                 </div>
             </div>
-            <div class="text-center mt-4">
-                <p>&copy; 2024 FreelanceJobs. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
+        <!-- Products -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+
+        <!-- Blog -->
+        <section class="mt-5 mb-4">
+            <div class="container text-dark">
+                <header class="mb-4 d-flex justify-content-between align-items-center">
+                    <h3>Blog posts</h3>
+                    <a href="marketing/list-post" class="btn btn-link text-primary">See more</a>
+                </header>
+
+                <div class="row">
+
+                    <c:forEach var="post" items="${posts}" begin="0" end="3" step="1">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                            <article>
+                                <a href="public/post-detail?id=${post.id}" class="img-fluid">
+                                    <img
+                                        class="rounded w-100"
+                                        src="${post.imgURL}"
+                                        style="object-fit: cover"
+                                        height="160"
+                                        alt="${post.title}"
+                                        />
+                                </a>
+                                <div class="mt-2 text-muted small d-block mb-1">
+                                    <span>
+                                        <i class="fa fa-calendar-alt fa-sm"></i>
+                                        23.12.2022
+                                    </span>
+                                    <a href="#"><h6 class="text-dark">${post.title}</h6></a>
+                                    <p>
+                                        ${fn:substring(post.content, 0, 50)}...
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+                    </c:forEach>
+
+                </div>
+            </div>
+        </section>
+        <!-- Blog -->
+
+        <!-- Footer -->
+        <footer
+            class="text-center text-lg-start text-muted mt-3"
+            style="background-color: #f5f5f5"
+            >
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start pt-4 pb-4">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+                        <div class="col-12 col-lg-3 col-sm-12 mb-2">
+                            <!-- Content -->
+                            <a href="https://mdbootstrap.com/" target="_blank" class="">
+                                <img
+                                    src="Image/logo.png"
+                                    height="35"
+                                    />
+                            </a>
+                            <p class="mt-2 text-dark">© 2023 Copyright: SWP391 - FPT University</p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <!-- Links -->
+                            <h6 class="text-uppercase text-dark fw-bold mb-2">Store</h6>
+                            <ul class="list-unstyled mb-4">
+                                <li><a class="text-muted" href="#">About us</a></li>
+                                <li><a class="text-muted" href="#">Find store</a></li>
+                                <li><a class="text-muted" href="#">Categories</a></li>
+                                <li><a class="text-muted" href="#">Blogs</a></li>
+                            </ul>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <!-- Links -->
+                            <h6 class="text-uppercase text-dark fw-bold mb-2">Information</h6>
+                            <ul class="list-unstyled mb-4">
+                                <li><a class="text-muted" href="#">Help center</a></li>
+                                <li><a class="text-muted" href="#">Money refund</a></li>
+                                <li><a class="text-muted" href="#">Shipping info</a></li>
+                                <li><a class="text-muted" href="#">Refunds</a></li>
+                            </ul>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-6 col-sm-4 col-lg-2">
+                            <!-- Links -->
+                            <h6 class="text-uppercase text-dark fw-bold mb-2">Support</h6>
+                            <ul class="list-unstyled mb-4">
+                                <li><a class="text-muted" href="#">Help center</a></li>
+                                <li><a class="text-muted" href="#">Documents</a></li>
+                                <li><a class="text-muted" href="#">Account restore</a></li>
+                                <li><a class="text-muted" href="#">My orders</a></li>
+                            </ul>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-12 col-sm-12 col-lg-3">
+                            <!-- Links -->
+                            <h6 class="text-uppercase text-dark fw-bold mb-2">Newsletter</h6>
+                            <p class="text-muted">
+                                Stay in touch with latest updates about our products and offers
+                            </p>
+                            <div class="input-group mb-3">
+                                <input
+                                    type="email"
+                                    class="form-control border"
+                                    placeholder="Email"
+                                    aria-label="Email"
+                                    aria-describedby="button-addon2"
+                                    />
+                                <button
+                                    class="btn btn-light border shadow-0"
+                                    type="button"
+                                    id="button-addon2"
+                                    data-mdb-ripple-color="dark"
+                                    >
+                                    Join
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <!-- Section: Links  -->
+
+        </footer>
+        <!-- Footer -->
+        <!-- MDB -->
+        <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.3.2/mdb.umd.min.js"
+        ></script>
+        <!-- Custom scripts -->
+        <script type="text/javascript">
+
+        </script>
+    </body>
 </html>
 
