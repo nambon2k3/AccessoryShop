@@ -103,7 +103,7 @@ public class SliderDAO {
     // Read (Get all Sliders with pagination)
     public List<Slider> getAllSliders() {
         List<Slider> sliderList = new ArrayList<>();
-        String query = "SELECT * FROM [Slider] where [IsDeleted] = 0";
+        String query = "SELECT * FROM slider where IsDeleted = 0";
 
         try {
             ps = conn.prepareStatement(query);
@@ -249,4 +249,11 @@ public class SliderDAO {
         }
         return false;
     }
+    
+    public static void main(String[] args) {
+        for(Slider s : new SliderDAO().getAllSliders()){
+            System.out.println(s);
+        }
+    }
+    
 }
