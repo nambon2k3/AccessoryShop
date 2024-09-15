@@ -28,7 +28,7 @@ public class UserDAO {
 
     // Create (Register)
     public boolean registerUser(User user) {
-        String query = "INSERT INTO `swp-online-shop`.user (Email, Password, Fullname, Gender, Address, Phone, CreatedBy, Avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO User (Email, Password, Fullname, Gender, Address, Phone, CreatedBy, Avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, user.getEmail());
@@ -38,7 +38,7 @@ public class UserDAO {
             ps.setString(5, user.getAddress());
             ps.setString(6, user.getPhone());
             ps.setInt(7, user.getCreatedBy());
-            ps.setString(8, user.getAvatar());
+            ps.setString(8, "https://www.svgrepo.com/show/452030/avatar-default.svg");
             int result = ps.executeUpdate();
             return result > 0;
         } catch (SQLException e) {
@@ -82,7 +82,7 @@ public class UserDAO {
 
     // Read (Get User by Email)
     public User getUserByEmail(String email) {
-        String query = "SELECT * FROM `swp-online-shop`.user WHERE Email = ?";
+        String query = "SELECT * FROM User WHERE Email = ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
@@ -305,7 +305,9 @@ public class UserDAO {
 
     // Update (Update User)
     public boolean updateUser(User user) {
-        String query = "UPDATE `swp-online-shop`.user SET Email=?, Password=?, Fullname=?, Gender=?, Address=?, Phone=?, IsDeleted=?, CreatedBy=?, Avatar=?, ChangeHistory=? WHERE ID=?";
+
+        String query = "UPDATE User SET Email=?, Password=?, Fullname=?, Gender=?, Address=?, Phone=?, IsDeleted=?, CreatedBy=?, Avatar=?, ChangeHistory=? WHERE ID=?";
+
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, user.getEmail());
@@ -347,7 +349,9 @@ public class UserDAO {
 
     // Login
     public User loginUser(String email, String password) {
-        String query = "SELECT * FROM `swp-online-shop`.user WHERE Email = ? AND Password = ?";
+
+        String query = "SELECT * FROM User WHERE Email = ? AND Password = ?";
+
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
@@ -379,5 +383,9 @@ public class UserDAO {
 
     private void closeResources() {
         
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new UserDAO().loginUser("a@gmail.com", "12345678"));
     }
 }

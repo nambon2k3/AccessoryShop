@@ -4,6 +4,7 @@
     Author     : MSI
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- Jumbotron -->
 <div class="p-3 text-center bg-white border-bottom">
@@ -12,11 +13,11 @@
             <!-- Left elements -->
             <div class="col-lg-2 col-sm-4 col-4">
                 <a
-                    href="home"
+                    href="${pageContext.request.contextPath}/home"
                     class="float-start"
                     >
                     <img
-                        src="Image/logo.png"
+                        src="${pageContext.request.contextPath}/Image/logo.png"
                         height="35"
                         />
                 </a>
@@ -26,13 +27,7 @@
             <!-- Center elements -->
             <div class="order-lg-last col-lg-5 col-sm-8 col-8">
                 <div class="d-flex float-end">
-                    <a
-                        href="${pageContext.request.contextPath}/login"
-                        class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
-                        >
-                        <i class="fas fa-user-alt m-1 me-md-2"></i>
-                        <p class="d-none d-md-block mb-0">Login</p>
-                    </a>
+
                     <a
                         href="https://github.com/mdbootstrap/bootstrap-material-design"
                         class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
@@ -49,6 +44,30 @@
                         <i class="fas fa-shopping-cart m-1 me-md-2"></i>
                         <p class="d-none d-md-block mb-0">My cart</p>
                     </a>
+                    <c:if test="${sessionScope.user == null}">
+                        <a
+                            href="${pageContext.request.contextPath}/login"
+                            class="me-1 border rounded py-1 px-3 nav-link d-flex align-items-center"
+                            >
+                            <i class="fas fa-user-alt m-1 me-md-2"></i>
+                            <p class="d-none d-md-block mb-0">Login</p>
+                        </a>
+                    </c:if>
+                    <c:if test="${sessionScope.user != null}">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link dropdown-toggle" data-mdb-dropdown-init data-mdb-ripple-init aria-expanded="false">
+                                <img src="${sessionScope.user.avatar}" alt="avatar"
+                                     class="rounded-circle img-fluid" style="width: 18px;">
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/common/profile">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Log out</a></li>
+                            </ul>
+                        </div>
+                    </c:if>
                 </div>
             </div>
             <!-- Center elements -->
@@ -69,30 +88,4 @@
         </div>
     </div>
 </div>
-<!-- Jumbotron -->
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <!-- Container wrapper -->
-    <div
-        class="container justify-content-center justify-content-md-between"
-        >
-        <!-- Toggle button -->
-        <button
-            class="navbar-toggler border py-2 text-dark"
-            type="button"
-            data-mdb-toggle="collapse"
-            data-mdb-target="#navbarLeftAlignExample"
-            aria-controls="navbarLeftAlignExample"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            >
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Collapsible wrapper -->
-
-    </div>
-    <!-- Container wrapper -->
-</nav>
-<!-- Navbar -->
