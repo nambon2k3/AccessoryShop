@@ -29,7 +29,7 @@ public class SettingDAO {
 
     // Create
     public boolean addSetting(String type, String value, int order, String description) {
-        String query = "INSERT INTO Settings (Type, Value, [Order], description) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO `swp-online-shop`.settings (Type, Value, `Order`, description) VALUES (?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, type);
@@ -46,7 +46,7 @@ public class SettingDAO {
 
     // Read
     public Setting getSettingByID(int settingID) {
-        String query = "SELECT * FROM Settings WHERE ID = ?";
+        String query = "SELECT * FROM `swp-online-shop`.settings WHERE ID = ?";
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, settingID);
@@ -71,7 +71,7 @@ public class SettingDAO {
 
     // Update
     public boolean updateSetting(Setting setting) {
-        String query = "UPDATE Settings SET Type=?, Value=?, [Order]=?, [isDeleted]=?, [description]=? WHERE ID=?";
+        String query = "UPDATE `swp-online-shop`.settings SET Type=?, Value=?, Order=?, isDeleted=?, description=? WHERE ID=?";
         try {
             ps = conn.prepareStatement(query);
             ps.setString(1, setting.getType());
@@ -90,7 +90,7 @@ public class SettingDAO {
 
     // Delete
     public boolean deleteSetting(int settingID) {
-        String query = "DELETE FROM Settings WHERE ID=?";
+        String query = "DELETE FROM `swp-online-shop`.settings WHERE ID=?";
         try {
             ps = conn.prepareStatement(query);
             ps.setInt(1, settingID);
@@ -105,7 +105,7 @@ public class SettingDAO {
     // Get all settings
     public List<Setting> getAllSettings() {
         List<Setting> settingsList = new ArrayList<>();
-        String query = "SELECT * FROM Settings";
+        String query = "SELECT * FROM `swp-online-shop`.settings";
         try {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -128,7 +128,7 @@ public class SettingDAO {
     // Get all settings with pagination
     public List<Setting> getAllSettings(int pageNumber, int pageSize) {
         List<Setting> settingsList = new ArrayList<>();
-        String query = "SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS RowNum, * FROM Settings) AS SubQuery WHERE RowNum BETWEEN ? AND ?";
+        String query = "SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY ID) AS RowNum, * FROM `swp-online-shop`.settings) AS SubQuery WHERE RowNum BETWEEN ? AND ?";
         int startIndex = (pageNumber - 1) * pageSize + 1;
         int endIndex = pageNumber * pageSize;
         try {

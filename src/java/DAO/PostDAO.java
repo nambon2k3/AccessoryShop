@@ -33,14 +33,14 @@ public class PostDAO extends DBContext {
     public List<Post> getPosts(int page, int pageSize, String category, String author, String status, String search, String sortBy, String sortOrder, String isManage) {
         List<Post> posts = new ArrayList<>();
         int offset = (page - 1) * pageSize;
-        StringBuilder query = new StringBuilder("SELECT po.ID, po.[CategoryId], po.Title, po.Content, po.IsDeleted, po.CreatedAt, po.imgURL, u.Fullname as AuthorName "
-                + "FROM [dbo].[Post] po "
-                + "JOIN [dbo].[User] u ON po.CreatedBy = u.ID "
-                + "JOIN [dbo].[Category] c ON po.CategoryId = c.ID "
+        StringBuilder query = new StringBuilder("SELECT po.ID, po.CategoryId, po.Title, po.Content, po.IsDeleted, po.CreatedAt, po.imgURL, u.Fullname as AuthorName "
+                + "FROM `swp-online-shop`.post po "
+                + "JOIN `swp-online-shop`.user u ON po.CreatedBy = u.ID "
+                + "JOIN `swp-online-shop`.category c ON po.CategoryId = c.ID "
                 + "WHERE 1=1");
 
         if(isManage.equalsIgnoreCase("no")) {
-            query.append(" AND po.[IsDeleted] = 0");
+            query.append(" AND po.IsDeleted = 0");
         }
         
         if (category != null && !category.isEmpty()) {
@@ -60,7 +60,7 @@ public class PostDAO extends DBContext {
         } else {
             query.append(" ORDER BY po.CreatedAt DESC");
         }
-        query.append(" OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        query.append(" LIMIT ?, ?;");
 
         try (PreparedStatement stmt = connection.prepareStatement(query.toString())) {
             int paramIndex = 1;
@@ -78,6 +78,7 @@ public class PostDAO extends DBContext {
             }
             stmt.setInt(paramIndex++, offset);
             stmt.setInt(paramIndex, pageSize);
+            
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -101,9 +102,9 @@ public class PostDAO extends DBContext {
     public int getTotalPosts(String category, String author, String status, String search) {
         int totalPosts = 0;
         StringBuilder query = new StringBuilder("SELECT COUNT(*) as Total "
-                + "FROM [dbo].[Post] po "
-                + "JOIN [dbo].[User] u ON po.CreatedBy = u.ID "
-                + "JOIN [dbo].[Category] c ON po.CategoryId = c.ID "
+                + "FROM `swp-online-shop`.post po "
+                + "JOIN `swp-online-shop`.user u ON po.CreatedBy = u.ID "
+                + "JOIN `swp-online-shop`.category c ON po.CategoryId = c.ID "
                 + "WHERE 1=1");
 
         if (category != null && !category.isEmpty()) {
@@ -147,7 +148,7 @@ public class PostDAO extends DBContext {
     public List<Category> getUniqueCategories() {
         List<Category> categories = new ArrayList<>();
         String query = "SELECT DISTINCT c.ID, c.Name "
-                + "FROM [dbo].[Category] c "
+                + "FROM `swp-online-shop`.category c "
                 + "WHERE c.IsDeleted = 0";
 
         try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
@@ -165,7 +166,7 @@ public class PostDAO extends DBContext {
 
     public List<String> getUniqueAuthors() {
         List<String> authors = new ArrayList<>();
-        String query = "SELECT DISTINCT u.Fullname FROM [dbo].[Post] po JOIN [dbo].[User] u ON po.CreatedBy = u.ID";
+        String query = "SELECT DISTINCT u.Fullname FROM `swp-online-shop`.post po JOIN `swp-online-shop`.user u ON po.CreatedBy = u.ID";
 
         try (PreparedStatement stmt = connection.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
@@ -178,7 +179,7 @@ public class PostDAO extends DBContext {
     }
 
     public boolean createPost(String title, String content, String category, int createdBy, String imgURL) {
-        String query = "INSERT INTO [dbo].[Post] (Title, Content, categoryid, IsDeleted, CreatedAt, CreatedBy, imgURL) VALUES (?, ?, ?, 0, GETDATE(), ?, ?)";
+        String query = "INSERT INTO `swp-online-shop`.post (Title, Content, categoryid, IsDeleted, CreatedAt, CreatedBy, imgURL) VALUES (?, ?, ?, 0, NOW(), ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query);) {
             stmt.setString(1, title);
             stmt.setString(2, content);
@@ -201,8 +202,8 @@ public class PostDAO extends DBContext {
         Post post = new Post();
         // SQL query to retrieve post by ID
         String query = "SELECT po.ID as PostID, CategoryId, Title, Content, po.IsDeleted, po.CreatedAt, po.CreatedBy, po.imgURL, u.Fullname as AuthorName "
-                + "FROM [dbo].[Post] po "
-                + "JOIN [dbo].[User] u ON po.CreatedBy = u.ID "
+                + "FROM `swp-online-shop`.post po "
+                + "JOIN `swp-online-shop`.user u ON po.CreatedBy = u.ID "
                 + "WHERE po.ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query);) {
             stmt.setInt(1, postId);
@@ -234,7 +235,7 @@ public class PostDAO extends DBContext {
 
     public boolean updatePost(int postId, String title, String content, int categoryId, String imgURL) {
         // SQL query to update the post
-        String query = "UPDATE [dbo].[Post] SET Title = ?, Content = ?, CategoryId = ?, imgURL = ? WHERE ID = ?";
+        String query = "UPDATE `swp-online-shop`.post SET Title = ?, Content = ?, CategoryId = ?, imgURL = ? WHERE ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query);) {
             stmt.setString(1, title);
             stmt.setString(2, content);
@@ -256,7 +257,7 @@ public class PostDAO extends DBContext {
 
     public boolean updatePost(int postId, int isDeleted) {
         // SQL query to update the post
-        String query = "UPDATE [dbo].[Post] SET isDeleted = ? WHERE ID = ?";
+        String query = "UPDATE `swp-online-shop`.post SET isDeleted = ? WHERE ID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query);) {
 
             stmt.setInt(1, isDeleted);
@@ -277,10 +278,10 @@ public class PostDAO extends DBContext {
     public List<Post> getLatestPosts() {
         List<Post> latestPosts = new ArrayList<>();
         try {
-            String query = "SELECT TOP 5 po.ID, po.[CategoryId], po.Title, po.Content, po.IsDeleted, po.CreatedAt, po.imgURL, u.Fullname as AuthorName "
-                    + "FROM [dbo].[Post] po "
-                    + "JOIN [dbo].[User] u ON po.CreatedBy = u.ID "
-                    + "JOIN [dbo].[Category] c ON po.CategoryId = c.ID ORDER BY po.CreatedAt DESC";
+            String query = "SELECT TOP 5 po.ID, po.CategoryId, po.Title, po.Content, po.IsDeleted, po.CreatedAt, po.imgURL, u.Fullname as AuthorName "
+                    + "FROM `swp-online-shop`.post po "
+                    + "JOIN `swp-online-shop`.user u ON po.CreatedBy = u.ID "
+                    + "JOIN `swp-online-shop`.category c ON po.CategoryId = c.ID ORDER BY po.CreatedAt DESC";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -304,7 +305,7 @@ public class PostDAO extends DBContext {
     public int getTotalPosts() {
         int totalPosts = 0;
         try {
-            String query = "SELECT COUNT(*) FROM [dbo].[Post]";
+            String query = "SELECT COUNT(*) FROM `swp-online-shop`.post";
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -317,7 +318,7 @@ public class PostDAO extends DBContext {
     }
     
     public List<Post> homePage(){
-        String sql = "SELECT * FROM post where isDeleted = 0 ORDER BY CreatedAt DESC LIMIT 4";
+        String sql = "SELECT * FROM `swp-online-shop`.post where isDeleted = 0 ORDER BY CreatedAt DESC LIMIT 4";
         List<Post> posts = new ArrayList<>();
         try {
             PreparedStatement ps = connection.prepareStatement(sql, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -336,7 +337,7 @@ public class PostDAO extends DBContext {
         return posts;
     }
 
-    public static void main(String[] args) {
+    public static void main(String args) {
         for(Post p : new PostDAO().homePage()){
             System.out.println(p);
         }

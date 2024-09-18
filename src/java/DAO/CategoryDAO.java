@@ -28,7 +28,7 @@ public class CategoryDAO extends DBContext{
     
     public String getCategoryNameById(int categoryId) {
         // SQL query to retrieve category name by category ID
-            String query = "SELECT Name FROM [dbo].[Category] WHERE ID = ?";
+            String query = "SELECT Name FROM `swp-online-shop`.category WHERE ID = ?";
         try (PreparedStatement statement = connection.prepareStatement(query);){
             statement.setInt(1, categoryId);
 
@@ -50,7 +50,7 @@ public class CategoryDAO extends DBContext{
     public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
 
-        String sql = "SELECT ID, Name FROM Category WHERE IsDeleted = 0;";
+        String sql = "SELECT ID, Name FROM `swp-online-shop`.category WHERE IsDeleted = 0;";
 
         try (PreparedStatement statement = connection.prepareStatement(sql);
              ResultSet rs = statement.executeQuery()) {
