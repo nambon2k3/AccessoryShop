@@ -1,231 +1,276 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
     <head>
-        <title>Login</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="author" content="">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-    </head>
+        <meta charset="UTF-8">
+        <title>CodePen - A Pen by Mohithpoojary</title>
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'><link rel="stylesheet" href="./style.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: Raleway, sans-serif;
+            }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+            body {
+                background: linear-gradient(90deg, #C7C5F4, #776BCC);
+            }
 
-    <link rel="stylesheet" type="text/css" href="css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+            }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
-          rel="stylesheet">
-    <style>
-            .custom-user-profile {
+            .screen {
+                background: linear-gradient(90deg, #5D54A4, #7C78B8);
                 position: relative;
-                display: inline-block;
+                height: 600px;
+                width: 360px;
+                box-shadow: 0px 0px 24px #5C5696;
             }
 
-            .custom-user-image {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
+            .screen__content {
+                z-index: 1;
+                position: relative;
+                height: 100%;
             }
 
-            .custom-dropdown {
-                display: inline-block;
-            }
-
-            .custom-dropbtn {
-                background-color: #F9F3EC;
-                ;
-                color: white;
-                padding: 10px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            .custom-dropdown-content {
-                display: none;
+            .screen__background {
                 position: absolute;
-                background-color: #f9f9f9;
-                min-width: 160px;
-                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-                z-index: 1000;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 0;
+                -webkit-clip-path: inset(0 0 0 0);
+                clip-path: inset(0 0 0 0);
             }
 
-            .custom-dropdown-item {
-                color: black;
-                padding: 12px 16px;
+            .screen__background__shape {
+                transform: rotate(45deg);
+                position: absolute;
+            }
+
+            .screen__background__shape1 {
+                height: 520px;
+                width: 520px;
+                background: #FFF;
+                top: -50px;
+                right: 120px;
+                border-radius: 0 72px 0 0;
+            }
+
+            .screen__background__shape2 {
+                height: 220px;
+                width: 220px;
+                background: #6C63AC;
+                top: -172px;
+                right: 0;
+                border-radius: 32px;
+            }
+
+            .screen__background__shape3 {
+                height: 540px;
+                width: 190px;
+                background: linear-gradient(270deg, #5D54A4, #6A679E);
+                top: -24px;
+                right: 0;
+                border-radius: 32px;
+            }
+
+            .screen__background__shape4 {
+                height: 400px;
+                width: 200px;
+                background: #7E7BB9;
+                top: 420px;
+                right: 50px;
+                border-radius: 60px;
+            }
+
+            .login {
+                width: 320px;
+                padding: 30px;
+                padding-top: 156px;
+            }
+
+            .login__field {
+                padding: 20px 0px;
+                position: relative;
+            }
+
+            .login__icon {
+                position: absolute;
+                top: 30px;
+                color: #7875B5;
+            }
+
+            .login__input {
+                border: none;
+                border-bottom: 2px solid #D1D1D4;
+                background: none;
+                padding: 10px;
+                padding-left: 24px;
+                font-weight: 700;
+                width: 75%;
+                transition: .2s;
+            }
+
+            .login__input:active,
+            .login__input:focus,
+            .login__input:hover {
+                outline: none;
+                border-bottom-color: #6A679E;
+            }
+
+            .login__submit {
+                background: #fff;
+                font-size: 14px;
+                margin-top: 30px;
+                padding: 16px 20px;
+                border-radius: 26px;
+                border: 1px solid #D4D3E8;
+                text-transform: uppercase;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                color: #4C489D;
+                box-shadow: 0px 2px 2px #5C5696;
+                cursor: pointer;
+                transition: .2s;
+            }
+
+            .login__submit:active,
+            .login__submit:focus,
+            .login__submit:hover {
+                border-color: #6A679E;
+                outline: none;
+            }
+
+            .button__icon {
+                font-size: 24px;
+                margin-left: auto;
+                color: #7875B5;
+            }
+
+            .social-login {
+                position: absolute;
+                height: 140px;
+                width: 160px;
+                text-align: center;
+                bottom: 0px;
+                right: 0px;
+                color: #fff;
+            }
+
+            .social-icons {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .social-login__icon {
+                padding: 20px 10px;
+                color: #fff;
                 text-decoration: none;
-                display: block;
+                text-shadow: 0px 0px 8px #7875B5;
             }
 
-            .custom-dropdown-item:hover {
-                background-color: #f1f1f1;
+            .social-login__icon:hover {
+                transform: scale(1.5);
             }
-
-            .custom-dropdown:hover .custom-dropdown-content {
-                display: block;
-            }
-
         </style>
+    </head>
+    <body>
+        <!-- partial:index.partial.html -->
+        <div class="container">
+            <div class="screen">
+                <div class="screen__content">
 
-</head>
-
-<body>
-
-    <div class="preloader-wrapper">
-        <div class="preloader">
-        </div>
-    </div>
-
-    <jsp:include page="Header.jsp"></jsp:include>
-        <section id="register" style="background: url('images/background-img.png') no-repeat;">
-            <div class="container ">
-                <div class="row py-5">
-                    <div class="offset-md-3 col-md-6 my-5 ">
-                        <h2 class="display-3 fw-normal text-center">
-                            Login
-                        </h2>
-                    <c:if test="${errorMessage != null}">
-                        <p class="text-center" style="color: red">${errorMessage}</p>
-                    </c:if>
-                    <form action="login" method="post">
-                        <div class="mb-3">
-                            <input type="email" class="form-control form-control-lg" name="email" id="email"
-                                   placeholder="Enter Your Email Address">
+                    <form class="login" action="login" method="post" id="_form">
+                        <div style="text-align: center">
+                            <h2>Login</h2>
                         </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control form-control-lg" name="password" id="password"
-                                   placeholder="Password">
+                        <% if (request.getAttribute("errorMessage") != null) { %>
+                        <div style="color: red">
+                            <%= request.getAttribute("errorMessage") %>
                         </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-dark btn-lg rounded-1">Login</button>
+                        <% } %>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-user"></i>
+                            <input type="email" id="email" name="email" required oninput="validateEmail()" class="login__input" placeholder="Email">
                         </div>
+                        <div id="emailError" style="color: red"></div>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-lock"></i>
+                            <input type="password" id="password" name="password" required oninput="validatePassword()" class="login__input" placeholder="Password">
+                        </div>
+                        <div id="passwordError" style="color: red"></div>
+                        <button class="button login__submit" type="submit">
+                            <span class="button__text">Log In Now</span>
+                            <i class="button__icon fas fa-chevron-right"></i>
+                        </button>				
                     </form>
-                    <p style="margin-top: 5px; margin-bottom: 0"><a style="color: blue" href="${pageContext.request.contextPath}/reset-password">Forgot password?</a></p>
-                    <p style="margin-top: 2px">Don't have account? <a href="${pageContext.request.contextPath}/register" style="color: blue">Register</a></p>
+                    <div class="social-login">
+                        <h3><a href="reset-password" style="color: white">Forgot password?</a></h3>
+                        <h3><a href="register" style="color: white" >Register</a></h3>
+                    </div>
                 </div>
+                <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>		
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                </div>		
             </div>
         </div>
-    </section>
+        <!-- partial -->
+        <script>
+            let email = true;
+            let password = true;
+            function validateEmail() {
+                var emailInput = document.getElementById('email');
+                var emailError = document.getElementById('emailError');
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                console.log(emailInput);
+                if (!emailRegex.test(emailInput.value)) {
+                    emailError.textContent = 'Invalid email address';
+                    email = fasle;
+                } else {
+                    emailError.textContent = '';
+                    email = true;
+                }
+            }
 
+            function validatePassword() {
+                var passwordInput = document.getElementById('password');
+                var passwordError = document.getElementById('passwordError');
 
-    <footer id="footer" class="my-5">
-        <div class="container py-5 my-5">
-            <div class="row">
+                if (passwordInput.value.trim() === '') {
+                    passwordError.textContent = 'Password cannot be empty';
+                    password = false;
+                } else if (passwordInput.value.length < 8) {
+                    password = false;
+                    passwordError.textContent = 'Password more than 8 character';
+                } else {
+                    passwordError.textContent = '';
+                    password = true;
+                }
+            }
+            document.getElementById('_form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (!email || !password)
+                    return;
+                event.target.submit();
+            })
+        </script>
 
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <img src="${pageContext.request.contextPath}/Image/logo.png" alt="logo">
-                        <p class="blog-paragraph fs-6 mt-3">Subscribe to our newsletter to get updates about our grand offers.</p>
-                        <div class="social-links">
-                            <ul class="d-flex list-unstyled gap-2">
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:facebook-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:twitter-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:pinterest-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:instagram-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:youtube-fill"></iconify-icon>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h3>Quick Links</h3>
-                        <ul class="menu-list list-unstyled">
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Home</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">About us</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Offer </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Services</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Conatct Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h3>Help Center</h5>
-                            <ul class="menu-list list-unstyled">
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">FAQs</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Payment</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Returns & Refunds</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Checkout</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Delivery Information</a>
-                                </li>
-                            </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div>
-                        <h3>Our Newsletter</h3>
-                        <p class="blog-paragraph fs-6">Subscribe to our newsletter to get updates about our grand offers.</p>
-                        <div class="search-bar border rounded-pill border-dark-subtle px-2">
-                            <form class="text-center d-flex align-items-center" action="" method="">
-                                <input type="text" class="form-control border-0 bg-transparent" placeholder="Enter your email here" />
-                                <iconify-icon class="send-icon" icon="tabler:location-filled"></iconify-icon>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-</body>
-
+    </body>
 </html>

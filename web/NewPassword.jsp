@@ -1,272 +1,270 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
     <head>
-        <title>User - profile</title>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="author" content="">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <meta charset="UTF-8">
+        <title>CodePen - A Pen by Mohithpoojary</title>
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/all.css'>
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.2.0/css/fontawesome.css'><link rel="stylesheet" href="./style.css">
+        <style>
+            @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: Raleway, sans-serif;
+            }
+
+            body {
+                background: linear-gradient(90deg, #C7C5F4, #776BCC);
+            }
+
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            .screen {
+                background: linear-gradient(90deg, #5D54A4, #7C78B8);
+                position: relative;
+                height: 600px;
+                width: 360px;
+                box-shadow: 0px 0px 24px #5C5696;
+            }
+
+            .screen__content {
+                z-index: 1;
+                position: relative;
+                height: 100%;
+            }
+
+            .screen__background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 0;
+                -webkit-clip-path: inset(0 0 0 0);
+                clip-path: inset(0 0 0 0);
+            }
+
+            .screen__background__shape {
+                transform: rotate(45deg);
+                position: absolute;
+            }
+
+            .screen__background__shape1 {
+                height: 520px;
+                width: 520px;
+                background: #FFF;
+                top: -50px;
+                right: 120px;
+                border-radius: 0 72px 0 0;
+            }
+
+            .screen__background__shape2 {
+                height: 220px;
+                width: 220px;
+                background: #6C63AC;
+                top: -172px;
+                right: 0;
+                border-radius: 32px;
+            }
+
+            .screen__background__shape3 {
+                height: 540px;
+                width: 190px;
+                background: linear-gradient(270deg, #5D54A4, #6A679E);
+                top: -24px;
+                right: 0;
+                border-radius: 32px;
+            }
+
+            .screen__background__shape4 {
+                height: 400px;
+                width: 200px;
+                background: #7E7BB9;
+                top: 420px;
+                right: 50px;
+                border-radius: 60px;
+            }
+
+            .login {
+                width: 320px;
+                padding: 30px;
+                padding-top: 150px;
+            }
+
+            .login__field {
+                padding: 20px 0px;
+                position: relative;
+            }
+
+            .login__icon {
+                position: absolute;
+                top: 30px;
+                color: #7875B5;
+            }
+
+            .login__input {
+                border: none;
+                border-bottom: 2px solid #D1D1D4;
+                background: none;
+                padding: 10px;
+                padding-left: 24px;
+                font-weight: 700;
+                width: 75%;
+                transition: .2s;
+            }
+
+            .login__input:active,
+            .login__input:focus,
+            .login__input:hover {
+                outline: none;
+                border-bottom-color: #6A679E;
+            }
+
+            .login__submit {
+                background: #fff;
+                font-size: 14px;
+                margin-top: 30px;
+                padding: 16px 20px;
+                border-radius: 26px;
+                border: 1px solid #D4D3E8;
+                text-transform: uppercase;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                color: #4C489D;
+                box-shadow: 0px 2px 2px #5C5696;
+                cursor: pointer;
+                transition: .2s;
+            }
+
+            .login__submit:active,
+            .login__submit:focus,
+            .login__submit:hover {
+                border-color: #6A679E;
+                outline: none;
+            }
+
+            .button__icon {
+                font-size: 24px;
+                margin-left: auto;
+                color: #7875B5;
+            }
+
+            .social-login {
+                position: absolute;
+                height: 140px;
+                width: 160px;
+                text-align: center;
+                bottom: 0px;
+                right: 0px;
+                color: #fff;
+            }
+
+            .social-icons {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .social-login__icon {
+                padding: 20px 10px;
+                color: #fff;
+                text-decoration: none;
+                text-shadow: 0px 0px 8px #7875B5;
+            }
+
+            .social-login__icon:hover {
+                transform: scale(1.5);
+            }
+        </style>
     </head>
+    <body>
+        <!-- partial:index.partial.html -->
+        <div class="container">
+            <div class="screen">
+                <div class="screen__content">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+                    <form class="login" action="new-password" method="post" id="_form">
+                        <input type="hidden" name="email" value="${email}">
+                        <input type="hidden" name="otp" value="${otp}">
+                        <div style="text-align: center">
+                            <h2>New password</h2>
+                            <% if (request.getAttribute("errorMessage") != null) { %>
+                            <div style="color: red">
+                                <%= request.getAttribute("errorMessage") %>
+                            </div>
+                            <% } %>
+                        </div>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
-          rel="stylesheet">
-    <style>
-        .custom-user-profile {
-            position: relative;
-            display: inline-block;
-        }
-
-        .custom-user-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .custom-dropdown {
-            display: inline-block;
-        }
-
-        .custom-dropbtn {
-            background-color: #F9F3EC;
-            ;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .custom-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
-
-        .custom-dropdown-item {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .custom-dropdown-item:hover {
-            background-color: #f1f1f1;
-        }
-
-        .custom-dropdown:hover .custom-dropdown-content {
-            display: block;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <div class="preloader-wrapper">
-        <div class="preloader">
-        </div>
-    </div>
-
-    <jsp:include page="Header.jsp"></jsp:include>
-        <div class="w-100 d-flex justify-content-center my-5 ">
-            <div class="card text-center" style="width: 500px;">
-                <div class="card-header h5 text-white bg-primary">New password</div>
-                <div class="card-body px-5">
-                    <!-- Display error message if any -->
-                <c:if test="${errorMessage != null}">
-                    <div style="color: red">
-                        ${errorMessage}
-                    </div>
-                </c:if>
-                    <form class="login-form" action="new-password" method="post" id="_form">
-                    <input type="hidden" name="email" value="${email}">
-                    <input type="hidden" name="otp" value="${otp}">
-                    <div data-mdb-input-init class="form-outline">
-                        <input type="password" id="password" name="password" required oninput="validatePassword()" class="form-control my-3" placeholder="Password"/>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-user"></i>
+                            <input type="password" id="password" name="password" required oninput="validatePassword()" class="login__input" placeholder="Password">
+                        </div>
                         <div id="passwordError" style="color: red"></div>
-                    </div>
-                    <div data-mdb-input-init class="form-outline">
-                        <input type="password" id="retypePassword" name="retypePassword" required oninput="validateRetypePassword()" class="form-control my-3" placeholder="Re-Password"/>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-user"></i>
+                            <input type="password" id="retypePassword" name="retypePassword" oninput="validateRetypePassword()" required class="login__input" placeholder="Retype Password">
+                        </div>
                         <div id="retypePasswordError" style="color: red"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Reset password</button>
-                </form>
 
-                <div class="d-flex justify-content-between mt-4">
-                    <a class="" href="login">Login</a>
-                    <a class="" href="register">Register</a>
+                        <button class="button login__submit" type="submit">
+                            <span class="button__text">Reset password</span>
+                            <i class="button__icon fas fa-chevron-right"></i>
+                        </button>				
+                    </form>
                 </div>
+                <div class="screen__background">
+                    <span class="screen__background__shape screen__background__shape4"></span>
+                    <span class="screen__background__shape screen__background__shape3"></span>		
+                    <span class="screen__background__shape screen__background__shape2"></span>
+                    <span class="screen__background__shape screen__background__shape1"></span>
+                </div>		
             </div>
         </div>
-    </div>
-
-
-    <footer id="footer" class="my-5">
-        <div class="container py-5 my-5">
-            <div class="row">
-
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <img src="${pageContext.request.contextPath}/Image/logo.png" alt="logo">
-                        <p class="blog-paragraph fs-6 mt-3">Subscribe to our newsletter to get updates about our grand offers.</p>
-                        <div class="social-links">
-                            <ul class="d-flex list-unstyled gap-2">
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:facebook-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:twitter-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:pinterest-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:instagram-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:youtube-fill"></iconify-icon>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h3>Quick Links</h3>
-                        <ul class="menu-list list-unstyled">
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Home</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">About us</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Offer </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Services</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Conatct Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h3>Help Center</h5>
-                            <ul class="menu-list list-unstyled">
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">FAQs</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Payment</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Returns & Refunds</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Checkout</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Delivery Information</a>
-                                </li>
-                            </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div>
-                        <h3>Our Newsletter</h3>
-                        <p class="blog-paragraph fs-6">Subscribe to our newsletter to get updates about our grand offers.</p>
-                        <div class="search-bar border rounded-pill border-dark-subtle px-2">
-                            <form class="text-center d-flex align-items-center" action="" method="">
-                                <input type="text" class="form-control border-0 bg-transparent" placeholder="Enter your email here" />
-                                <iconify-icon class="send-icon" icon="tabler:location-filled"></iconify-icon>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </footer>
-
-    <script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/script.js"></script> 
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script>
-        let validateFullname = true;
-        let validatepassword = true;
-        let validateRePassword = true;
-
-
-        function validatePassword() {
-            var passwordInput = document.getElementById('password');
-            var passwordError = document.getElementById('passwordError');
-
-            if (passwordInput.value.trim().length < 8) {
-                passwordError.textContent = 'Password must be more than 8 characters';
-                validatepassword = false;
-            } else {
-                passwordError.textContent = '';
-                validatepassword = true;
+        <!-- partial -->
+        <script>
+            let validatepassword = true;
+            let validateRePassword = true;
+            function validatePassword() {
+                var passwordInput = document.getElementById('password');
+                var passwordError = document.getElementById('passwordError');
+                if (passwordInput.value.trim().length < 8) {
+                    passwordError.textContent = 'Password more than 8 characters';
+                    validatepassword = false;
+                } else {
+                    passwordError.textContent = '';
+                    validatepassword = true;
+                }
             }
-        }
 
-        function validateRetypePassword() {
-            var passwordInput = document.getElementById('password');
-            var retypePasswordInput = document.getElementById('retypePassword');
-            var retypePasswordError = document.getElementById('retypePasswordError');
-
-            if (retypePasswordInput.value !== passwordInput.value) {
-                validateRePassword = false;
-                retypePasswordError.textContent = 'Passwords do not match';
-            } else {
-                retypePasswordError.textContent = '';
-                validateRePassword = true;
+            function validateRetypePassword() {
+                var passwordInput = document.getElementById('password');
+                var retypePasswordInput = document.getElementById('retypePassword');
+                var retypePasswordError = document.getElementById('retypePasswordError');
+                if (retypePasswordInput.value !== passwordInput.value) {
+                    validateRePassword = false;
+                    retypePasswordError.textContent = 'Passwords do not match';
+                } else {
+                    retypePasswordError.textContent = '';
+                    validateRePassword = true;
+                }
             }
-        }
-        document.getElementById('_form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            if (!validateFullname || !validatepassword || !validateRePassword)
-                return;
-            event.target.submit();
-        });
-    </script>
+            document.getElementById('_form').addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (!validatepassword || !validateRePassword)
+                    return;
+                event.target.submit();
+            });
+        </script>
 
-</body>
-
+    </body>
 </html>
