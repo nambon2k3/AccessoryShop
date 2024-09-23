@@ -10,6 +10,7 @@ public class Product {
     private String createdAt;
     private String description;
     private int createdBy;
+    private ProductDetail productDetail;
     private List<ProductDetail> productDetails;
 
     public Product() {
@@ -25,7 +26,26 @@ public class Product {
         this.createdBy = createdBy;
         this.productDetails = productDetails;
     }
+    
+    public Product(int productID, int categoryID, String productName, int isDeleted, String createdAt, String description, int createdBy, ProductDetail productDetail) {
+        this.productId = productID;
+        this.categoryId = categoryID;
+        this.productName = productName;
+        this.isDeleted = isDeleted;
+        this.createdAt = createdAt;
+        this.description = description;
+        this.createdBy = createdBy;
+        this.productDetail = productDetail;
+    }
 
+    public ProductDetail getProductDetail() {
+        return productDetail;
+    }
+
+    public void setProductDetail(ProductDetail ProductDetail) {
+        this.productDetail = ProductDetail;
+    }
+    
     public int getProductID() {
         return productId;
     }

@@ -82,7 +82,7 @@ public class RegisterControl extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String retypePassword = request.getParameter("retypePassword");
-
+        
 
         // Perform additional validation checks
         String validationError = validateRegistrationInput(fullName, email, password, retypePassword, "", "");
@@ -111,9 +111,7 @@ public class RegisterControl extends HttpServlet {
                 return;
             }
 
-            // Email is not registered, and passwords match, proceed with registration
-//            boolean registrationSuccessful = userDAO.registerUser(fullName, email, password, role);
-            // Verify OTP
+
             String otp = generateRandomSixDigit() + "";
             String verifyLink = "http://" + request.getServerName() + ":" + request.getServerPort()
                     + request.getContextPath() + "/verify?otp=" + otp + "&email=" + email;
@@ -127,7 +125,7 @@ public class RegisterControl extends HttpServlet {
             user.setEmail(email);
             user.setPassword(password);
             user.setFullname(fullName);
-            user.setGender( "Female");
+            user.setGender("Female");
             user.setAddress("");
             user.setPhone("");
             user.setIsDeleted(false);
@@ -144,7 +142,10 @@ public class RegisterControl extends HttpServlet {
 
     // Additional validation method
     private String validateRegistrationInput(String fullName, String email, String password, String retypePassword, String phone, String address) {
-
+        // Validate full name
+        if (!isValidFullName(fullName)) {
+            return "Invalid full name. Please enter a valid full name.";
+        }
 
         // Validate email
         if (!isValidEmail(email)) {
@@ -160,6 +161,7 @@ public class RegisterControl extends HttpServlet {
         if (!isValidRetypePassword(password, retypePassword)) {
             return "Passwords do not match. Please ensure that the entered passwords match.";
         }
+
 
 
         return null; // No validation error
