@@ -3,275 +3,317 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-        <title>User - profile</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="author" content="">
-        <meta name="keywords" content="">
-        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <title>Reset password</title>
+
+        <!-- Google font -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css2/bootstrap.min.css"/>
+
+        <!-- Slick -->
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css2/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css2/slick-theme.css"/>
+
+        <!-- nouislider -->
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css2/nouislider.min.css"/>
+
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css2/font-awesome.min.css">
+
+        <!-- Custom stlylesheet -->
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css2/style.css"/>
+        <style>
+            .custom-user-profile {
+                position: relative;
+                display: inline-block;
+            }
+
+            .custom-user-image {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+
+            .custom-dropdown {
+                display: inline-block;
+            }
+
+            .custom-dropbtn {
+                background-color: #F9F3EC;
+                ;
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .custom-dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1000;
+            }
+
+            .custom-dropdown-item {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .custom-dropdown-item:hover {
+                background-color: #f1f1f1;
+            }
+
+            .custom-dropdown:hover .custom-dropdown-content {
+                display: block;
+            }
+
+
+            .custom-password-container {
+                width: 500px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .custom-password-container h2 {
+                text-align: center;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            .custom-input-group {
+                margin-bottom: 15px;
+            }
+
+            .custom-input-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: bold;
+                color: #555;
+            }
+
+            .custom-input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            .custom-input:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+
+            .custom-submit-button {
+                width: 100%;
+                padding: 10px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .custom-submit-button:hover {
+                background-color: #0056b3;
+            }
+
+
+
+
+
+        </style>
+
     </head>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/vendor.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chilanka&family=Montserrat:wght@300;400;500&display=swap"
-          rel="stylesheet">
-    <style>
-        .custom-user-profile {
-            position: relative;
-            display: inline-block;
-        }
-
-        .custom-user-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .custom-dropdown {
-            display: inline-block;
-        }
-
-        .custom-dropbtn {
-            background-color: #F9F3EC;
-            ;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .custom-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
-
-        .custom-dropdown-item {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .custom-dropdown-item:hover {
-            background-color: #f1f1f1;
-        }
-
-        .custom-dropdown:hover .custom-dropdown-content {
-            display: block;
-        }
-
-    </style>
-
-</head>
-
-<body>
-
-    <div class="preloader-wrapper">
-        <div class="preloader">
-        </div>
-    </div>
-
-    <jsp:include page="Header.jsp"></jsp:include>
-        <div class="w-100 d-flex justify-content-center my-5 ">
-            <div class="card text-center" style="width: 500px;">
-                <div class="card-header h5 text-white bg-primary">Change password</div>
-                <div class="card-body px-5">
-                    <!-- Display error message if any -->
-                <c:if test="${param.success ne null}">
-                    <div class="alert alert-success" role="alert">
-                        Success!
-                    </div>
-                </c:if>
-                <c:if test="${param.fail ne null}">
-                    <div class="alert alert-danger" role="alert">
-                        Failed!
-                    </div>
-                </c:if>
-                <form class="login-form" action="change-pass" method="post" id="_form">
-                    <div data-mdb-input-init class="form-outline">
-                        <input type="password"  required name="oldpassword"  class="form-control my-3" placeholder="Old Password"/>
-                    </div>
-                    <div data-mdb-input-init class="form-outline">
-                        <input type="password" id="password" name="password" required oninput="validatePassword()" class="form-control my-3" placeholder="Password"/>
-                        <div id="passwordError" style="color: red"></div>
-                    </div>
-                    <div data-mdb-input-init class="form-outline">
-                        <input type="password" id="retypePassword" name="repassword" required oninput="validateRetypePassword()" class="form-control my-3" placeholder="Re-Password"/>
-                        <div id="retypePasswordError" style="color: red"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Reset password</button>
-                </form>
-
-                <div class="d-flex justify-content-between mt-4">
-                    <a class="" href="login">Login</a>
-                    <a class="" href="register">Register</a>
+    <body>
+        <!-- HEADER -->
+        <jsp:include page="Header.jsp"></jsp:include>
+            <!-- /HEADER -->
+            <div class="custom-password-container">
+                <h2>Change password</h2>
+            <c:if test="${param.success ne null}">
+                <div class="alert alert-success" role="alert">
+                    Success!
                 </div>
-            </div>
+            </c:if>
+            <c:if test="${param.fail ne null}">
+                <div class="alert alert-danger" role="alert">
+                    Failed!
+                </div>
+            </c:if>
+            <form action="change-pass" method="post" id="_form">
+                <div class="custom-input-group">
+                    <label for="old-password">Old password</label>
+                    <input type="password" id="old-password" class="custom-input" value="" name="oldpassword" required>
+                </div>
+                <div class="custom-input-group">
+                    <label for="new-password">New password</label>
+                    <input type="password" id="password" class="custom-input" oninput="validatePassword()" name="password" value="" required>
+                    <div id="passwordError" style="color: red"></div>
+                </div>
+                <div class="custom-input-group">
+                    <label for="confirm-password">Confirm password</label>
+                    <input type="password" id="retypePassword" class="custom-input"  oninput="validateRetypePassword()" name="repassword" value="" required>
+                    <div id="retypePasswordError" style="color: red"></div>
+                </div>
+                <button class="custom-submit-button">Submit</button>
+            </form>
         </div>
-    </div>
 
 
-    <footer id="footer" class="my-5">
-        <div class="container py-5 my-5">
-            <div class="row">
 
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <img src="${pageContext.request.contextPath}/Image/logo.png" alt="logo">
-                        <p class="blog-paragraph fs-6 mt-3">Subscribe to our newsletter to get updates about our grand offers.</p>
-                        <div class="social-links">
-                            <ul class="d-flex list-unstyled gap-2">
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:facebook-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:twitter-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:pinterest-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:instagram-fill"></iconify-icon>
-                                    </a>
-                                </li>
-                                <li class="social">
-                                    <a href="#">
-                                        <iconify-icon class="social-icon" icon="ri:youtube-fill"></iconify-icon>
-                                    </a>
-                                </li>
+        <!-- FOOTER -->
+        <footer id="footer">
+            <!-- top footer -->
+            <div class="section">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">About Us</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                                <ul class="footer-links">
+                                    <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
-                            </ul>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Categories</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">Hot deals</a></li>
+                                    <li><a href="#">Laptops</a></li>
+                                    <li><a href="#">Smartphones</a></li>
+                                    <li><a href="#">Cameras</a></li>
+                                    <li><a href="#">Accessories</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="clearfix visible-xs"></div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Information</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Orders and Returns</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Service</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">View Cart</a></li>
+                                    <li><a href="#">Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                    <!-- /row -->
                 </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h3>Quick Links</h3>
-                        <ul class="menu-list list-unstyled">
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Home</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">About us</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Offer </a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Services</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="#" class="nav-link">Conatct Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="footer-menu">
-                        <h3>Help Center</h5>
-                            <ul class="menu-list list-unstyled">
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">FAQs</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Payment</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Returns & Refunds</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Checkout</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="nav-link">Delivery Information</a>
-                                </li>
+                <!-- /container -->
+            </div>
+            <!-- /top footer -->
+
+            <!-- bottom footer -->
+            <div id="bottom-footer" class="section">
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul class="footer-payments">
+                                <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                                <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
                             </ul>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div>
-                        <h3>Our Newsletter</h3>
-                        <p class="blog-paragraph fs-6">Subscribe to our newsletter to get updates about our grand offers.</p>
-                        <div class="search-bar border rounded-pill border-dark-subtle px-2">
-                            <form class="text-center d-flex align-items-center" action="" method="">
-                                <input type="text" class="form-control border-0 bg-transparent" placeholder="Enter your email here" />
-                                <iconify-icon class="send-icon" icon="tabler:location-filled"></iconify-icon>
-                            </form>
+                            <span class="copyright">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </span>
                         </div>
                     </div>
+                    <!-- /row -->
                 </div>
-
+                <!-- /container -->
             </div>
-        </div>
-    </footer>
+            <!-- /bottom footer -->
+        </footer>
+        <!-- /FOOTER -->
 
-    <script src="${pageContext.request.contextPath}/js/jquery-1.11.0.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/script.js"></script> 
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script>
-        let validateFullname = true;
-        let validatepassword = true;
-        let validateRePassword = true;
+        <!-- jQuery Plugins -->
+        <script src="${pageContext.request.contextPath}/js2/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js2/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js2/slick.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js2/nouislider.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js2/jquery.zoom.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js2/main.js"></script>
+        <script>
+                                    let validatepassword = true;
+                                    let validateRePassword = true;
+                                    function validatePassword() {
+                                        var passwordInput = document.getElementById('password');
+                                        var passwordError = document.getElementById('passwordError');
+                                        if (passwordInput.value.trim().length < 8) {
+                                            passwordError.textContent = 'Password more than 8 characters';
+                                            validatepassword = false;
+                                        } else {
+                                            passwordError.textContent = '';
+                                            validatepassword = true;
+                                        }
+                                    }
 
-        function validatePassword() {
-            var passwordInput = document.getElementById('password');
-            var passwordError = document.getElementById('passwordError');
-
-            if (passwordInput.value.trim().length < 8) {
-                passwordError.textContent = 'Password must be more than 8 characters';
-                validatepassword = false;
-            } else {
-                passwordError.textContent = '';
-                validatepassword = true;
-            }
-        }
-
-        function validateRetypePassword() {
-            var passwordInput = document.getElementById('password');
-            var retypePasswordInput = document.getElementById('retypePassword');
-            var retypePasswordError = document.getElementById('retypePasswordError');
-
-            if (retypePasswordInput.value !== passwordInput.value) {
-                validateRePassword = false;
-                retypePasswordError.textContent = 'Passwords do not match';
-            } else {
-                retypePasswordError.textContent = '';
-                validateRePassword = true;
-            }
-        }
-        document.getElementById('_form').addEventListener('submit', function (event) {
-            event.preventDefault();
-            if (!validateFullname || !validatepassword || !validateRePassword)
-                return;
-            event.target.submit();
-        });
-    </script>
-
-</body>
-
+                                    function validateRetypePassword() {
+                                        var passwordInput = document.getElementById('password');
+                                        var retypePasswordInput = document.getElementById('retypePassword');
+                                        var retypePasswordError = document.getElementById('retypePasswordError');
+                                        if (retypePasswordInput.value !== passwordInput.value) {
+                                            validateRePassword = false;
+                                            retypePasswordError.textContent = 'Passwords do not match';
+                                        } else {
+                                            retypePasswordError.textContent = '';
+                                            validateRePassword = true;
+                                        }
+                                    }
+                                    document.getElementById('_form').addEventListener('submit', function (event) {
+                                        event.preventDefault();
+                                        if (!validatepassword || !validateRePassword)
+                                            return;
+                                        event.target.submit();
+                                    });
+        </script>
+    </body>
 </html>
