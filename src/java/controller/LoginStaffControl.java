@@ -81,11 +81,10 @@ public class LoginStaffControl extends HttpServlet {
             // Login successful
             request.getSession().setAttribute("staff", staff); 
 
-            if (staff.getRole() == 1) response.sendRedirect("admin/user");
+            if (staff.getRole() == 1) response.sendRedirect("admin/staff");
             if (staff.getRole() == 2) response.sendRedirect("marketing/list-post");
             if (staff.getRole() == 3 || staff.getRole() == 4) response.sendRedirect("sale/dashboard");
             if (staff.getRole() == 6) response.sendRedirect("inventory/list-order");
-//            response.sendRedirect("home");
         } else {
             // Login failed
             request.setAttribute("errorMessage", "Invalid email or password");

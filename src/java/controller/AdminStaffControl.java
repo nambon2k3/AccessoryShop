@@ -19,8 +19,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@WebServlet(name = "AdminStaffControl", urlPatterns = {"/admin/user"})
-public class AdminUserControl extends HttpServlet {
+@WebServlet(name = "AdminStaffControl", urlPatterns = {"/admin/staff"})
+public class AdminStaffControl extends HttpServlet {
 
     private StaffDAO staffDAO;
 
@@ -60,7 +60,7 @@ public class AdminUserControl extends HttpServlet {
         request.setAttribute("pageSize", pageSize);
         request.setAttribute("totalPages", totalPages);
 
-        request.getRequestDispatcher("../user-list.jsp").forward(request, response);
+        request.getRequestDispatcher("../staff-list.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,9 +115,9 @@ public class AdminUserControl extends HttpServlet {
 
         if (success) {
             // Redirect to staff list page after successful addition
-            response.sendRedirect("user?success");
+            response.sendRedirect("staff?success");
         } else {
-            response.sendRedirect("user?fail");
+            response.sendRedirect("staff?fail");
         }
     }
 
@@ -149,10 +149,10 @@ public class AdminUserControl extends HttpServlet {
         boolean success = staffDAO.updateStaff(staff);
         if (success) {
             // Redirect to staff list page after successful update
-            response.sendRedirect("user?success");
+            response.sendRedirect("staff?success");
         } else {
             // Handle update failure
-            response.sendRedirect("user?fail");
+            response.sendRedirect("staff?fail");
         }
     }
 

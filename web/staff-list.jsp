@@ -33,10 +33,10 @@
                 </div>
             </c:if>
 
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addUserModal">Add User</button>
+            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addUserModal">Add Staff</button>
 
             <!--filter form-->
-            <form action="user" method="get" class="form-inline mb-3">
+            <form action="staff" method="get" class="form-inline mb-3">
                 <div class="form-group mr-2">
                     <input type="text" class="form-control" name="fullName" placeholder="Full Name">
                 </div>
@@ -353,6 +353,7 @@
 
                     reader.readAsDataURL(file);
                 }
+                
             }
         </script>
 

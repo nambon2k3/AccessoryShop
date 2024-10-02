@@ -82,8 +82,8 @@ public class ListPostController extends HttpServlet {
         List<Post> posts = postDAO.getPosts(page, PAGE_SIZE, category, author, status, search, sortBy, sortOrder, "Yes");
 
         // Get the total number of posts for pagination
-        int totalPosts = postDAO.getTotalPosts(category, author, status, search);
-        int totalPages = (int) Math.ceil((double) totalPosts / PAGE_SIZE);
+        int totalPosts = postDAO.getTotalPosts(category, author, status, search); 
+        int totalPages = (int) Math.ceil((double) totalPosts / PAGE_SIZE); 
 
         // Fetch filter options
         List<Category> categories = postDAO.getUniqueCategories();
