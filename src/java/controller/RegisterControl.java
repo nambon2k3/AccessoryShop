@@ -82,6 +82,8 @@ public class RegisterControl extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String retypePassword = request.getParameter("retypePassword");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
         
 
         // Perform additional validation checks
@@ -126,8 +128,8 @@ public class RegisterControl extends HttpServlet {
             user.setPassword(password);
             user.setFullname(fullName);
             user.setGender("Female");
-            user.setAddress("");
-            user.setPhone("");
+            user.setAddress(address);
+            user.setPhone(phone);
             user.setIsDeleted(false);
             
             request.getSession().setAttribute("verify_" + email, user);

@@ -217,9 +217,22 @@
                         </div>
                         <div id="passwordError" style="color: red"></div>
                         <div class="login__field">
-                            <i class="login__icon fas fa-lock"></i>
+                            <i class="login__icon fas fa-phone"></i>
                             <input type="password" name="retypePassword" id="retypePassword" required oninput="validateRetypePassword()" class="login__input" placeholder="Re-Password">
                         </div>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-lock"></i>
+                            <input class="login__input" type="text" id="phone" name="phone" placeholder="PhoneNumber" required oninput="validatePhone()">
+                            
+                        </div>
+                        <div id="phoneError" style="color: red"></div>
+                        <div class="login__field">
+                            <i class="login__icon fas fa-home"></i>
+                            <input class="login__input" type="text" id="address" name="address" required oninput="validateAddress()">
+                            
+                        </div>
+                        <div id="addressError" style="color: red"></div>
+                        
                         <div id="retypePasswordError" style="color: red"></div>
                         <div id="retypePasswordError" style="color: red"></div>
                         <button class="button login__submit" type="submit">
@@ -292,6 +305,29 @@
                 } else {
                     retypePasswordError.textContent = '';
                     validateRePassword = true;
+                }
+            }
+            
+            function validatePhone() {
+                var phoneInput = document.getElementById('phone');
+                var phoneError = document.getElementById('phoneError');
+                var phoneRegex = /^\d+$/;
+
+                if (phoneInput.value.trim() === '' || !phoneRegex.test(phoneInput.value)) {
+                    phoneError.textContent = 'Invalid phone number. Please enter digits only.';
+                } else {
+                    phoneError.textContent = '';
+                }
+            }
+
+            function validateAddress() {
+                var addressInput = document.getElementById('address');
+                var addressError = document.getElementById('addressError');
+
+                if (addressInput.value.trim() === '') {
+                    addressError.textContent = 'Address cannot be empty';
+                } else {
+                    addressError.textContent = '';
                 }
             }
             document.getElementById('_form').addEventListener('submit', function (event) {
