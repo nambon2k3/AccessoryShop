@@ -27,13 +27,8 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
-                            </select>
-                            <input class="input" placeholder="Search here">
+                        <form action="${pageContext.request.contextPath}/public/list-product">
+                            <input class="input" placeholder="Search here" value="${searchQuery}" name="searchQuery">
                             <button class="search-btn">Search</button>
                         </form>
                     </div>
@@ -68,7 +63,8 @@
                                     </button>
                                     <div class="custom-dropdown-content" id="customDropdownContent">
                                         <a href="${pageContext.request.contextPath}/common/profile" class="custom-dropdown-item">Profile</a>
-                                        <a href="#" class="custom-dropdown-item">Setting</a>
+                                        <a href="#" class="custom-dropdown-item">Cart</a>
+                                        <a href="#" class="custom-dropdown-item">My order</a>
                                         <a href="${pageContext.request.contextPath}/logout" class="custom-dropdown-item">Logout</a>
                                     </div>
                                 </div>

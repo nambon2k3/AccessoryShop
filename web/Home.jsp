@@ -92,7 +92,7 @@
 
             /* Style cho từng slide */
             .banner-slide {
-                
+
                 padding: 20px;
                 gap: 20px; /* Khoảng cách giữa ảnh và nội dung */
             }
@@ -165,21 +165,19 @@
                     <div id="responsive-nav">
                         <!-- NAV -->
                         <ul class="main-nav nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#">Hot Deals</a></li>
-                            <li><a href="#">Categories</a></li>
-                            <li><a href="#">Laptops</a></li>
-                        </ul>
-                        <!-- /NAV -->
-                    </div>
-                    <!-- /responsive-nav -->
+                            <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/public/list-product">All products</a></li>
+                    </ul>
+                    <!-- /NAV -->
                 </div>
-                <!-- /container -->
-            </nav>
-            <!-- /NAVIGATION -->
+                <!-- /responsive-nav -->
+            </div>
+            <!-- /container -->
+        </nav>
+        <!-- /NAVIGATION -->
 
-            <!-- SECTION -->
-            <div class="banner-slick">
+        <!-- SECTION -->
+        <div class="banner-slick">
             <c:forEach var="slider" items="${sliders}">
                 <div class="banner-slide" style="display: flex; align-items: center;justify-content: space-evenly">
                     <div class="banner-img">
@@ -244,7 +242,7 @@
                                                     <div class="product-btns">
                                                         <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
                                                         <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                                        <button class="quick-view" onclick="productDetail(${p.productId})"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
                                                     </div>
                                                 </div>
                                                 <div class="add-to-cart">
@@ -500,6 +498,11 @@
                                             fade: true, // Hiệu ứng chuyển mờ dần
                                         });
                                     });
+        </script>
+        <script>
+            function productDetail(id){
+                window.location.href = "public/product-detail?id="+id;
+            }
         </script>
     </body>
 </html>
