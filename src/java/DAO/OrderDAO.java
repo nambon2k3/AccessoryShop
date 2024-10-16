@@ -77,9 +77,9 @@ public class OrderDAO {
 
     public double getTotal(int orderId) {
         String sql = "SELECT SUM(pd.price * (100 - pd.discount)/100 * od.quantity) AS total_cost "
-                + "FROM `Order` o "
-                + "INNER JOIN drinkingorder.`OrderDetail` od ON o.ID = od.OrderID "
-                + "INNER JOIN drinkingorder.`ProductDetail` pd ON od.ProductDetailID = pd.ID "
+                + "FROM `swp-online-shop`.`Order` o "
+                + "INNER JOIN `swp-online-shop`.`OrderDetail` od ON o.ID = od.OrderID "
+                + "INNER JOIN `swp-online-shop`.`ProductDetail` pd ON od.ProductDetailID = pd.ID "
                 + "WHERE o.ID = ? "
                 + "GROUP BY o.ID";
 
@@ -166,7 +166,7 @@ public class OrderDAO {
                     = "UPDATE `Order` "
                     + "SET Status = 'Canceled' "
                     + "WHERE Status Like 'Not yet' "
-                    + "AND CreatedAt < DATEADD(DAY, -1, GETDATE())";
+                    + "AND CreatedAt < DATE_SUB(NOW(), INTERVAL 1 DAY)";
             // Execute the update statement
             PreparedStatement pstmt = connection.prepareStatement(UPDATE_ORDER_STATUS_SQL);
             int rowsUpdated = pstmt.executeUpdate();
@@ -351,7 +351,7 @@ public class OrderDAO {
     public Order getOrderById(int orderId) {
         Order order = null;
         try {
-            String sql = "SELECT * FROM `Order` WHERE ID = ?";
+            String sql = "SELECT * FROM `swp-online-shop`.`Order` WHERE ID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, orderId);
 
@@ -381,8 +381,8 @@ public class OrderDAO {
     public List<ProductDetail> getOrderedProductsByOrderId(int orderId) {
         List<ProductDetail> orderedProducts = new ArrayList<>();
         try {
-            String sql = "SELECT ProductDetailID, quantity, ID"
-                    + "FROM `OrderDetail` od "
+            String sql = "SELECT ProductDetailID, quantity, ID "
+                    + "FROM `swp-online-shop`.`OrderDetail` od "
                     + "WHERE od.OrderID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, orderId);
@@ -404,7 +404,7 @@ public class OrderDAO {
     public boolean cancelOrder(int orderId) {
         boolean isCanceled = false;
         try {
-            String sql = "UPDATE `Order`  SET status = 'Request cancel' WHERE ID = ?";
+            String sql = "UPDATE `swp-online-shop`.`Order`  SET status = 'Request cancel' WHERE ID = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, orderId);
 
@@ -445,10 +445,6 @@ public class OrderDAO {
             statement.setInt(1, orderId);
 
             int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                isCanceled = true;
-                new ProductDAO().updateHoldQuantity(orderId, 1);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -470,7 +466,6 @@ public class OrderDAO {
             
             if(status.equalsIgnoreCase("Delivering")) {
                 new ProductDAO().updateQuantity(orderId, 1);
-                new ProductDAO().updateHoldQuantity(orderId, 1);
             }
         } catch (SQLException e) {
             System.out.println("shippingOrder: " + e.getMessage());
@@ -513,7 +508,7 @@ public class OrderDAO {
                 + "    GROUP BY \n"
                 + "        s.ID, s.Fullname, s.Email\n"
                 + ")\n"
-                + "SELECT TOP 1\n"
+                + "SELECT \n"
                 + "    StaffID,\n"
                 + "    Fullname,\n"
                 + "    Email,\n"
@@ -521,7 +516,7 @@ public class OrderDAO {
                 + "FROM \n"
                 + "    StaffOrderCounts\n"
                 + "ORDER BY \n"
-                + "    OrderCount ASC;";
+                + "    OrderCount ASC LIMIT 1;";
         try {
             PreparedStatement ps = connection.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
@@ -591,7 +586,7 @@ public class OrderDAO {
     }
 
     public void createOrderDetail(OrderDetail orderDetail) {
-        String INSERT_ORDER_DETAIL_SQL = "INSERT INTO `OrderDetail` (orderId, ProductDetailID, quantity, CreatedBy) VALUES (?, ?, ?, ?, ?)";
+        String INSERT_ORDER_DETAIL_SQL = "INSERT INTO `OrderDetail` (orderId, ProductDetailID, quantity, CreatedBy) VALUES (?, ?, ?, ?)";
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(INSERT_ORDER_DETAIL_SQL)) {
             preparedStatement.setInt(1, orderDetail.getOrderId());
@@ -611,9 +606,6 @@ public class OrderDAO {
 
             preparedStatement.setString(1, status);
             preparedStatement.setInt(2, orderId);
-            if (status.equalsIgnoreCase("Submitted")) {
-                new ProductDAO().updateHoldQuantity(orderId, -1);
-            }
 
             int affectedRows = preparedStatement.executeUpdate();
 

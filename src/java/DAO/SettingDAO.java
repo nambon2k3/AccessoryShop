@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SettingDAO {
+public class SettingDAO extends  DBContext{
 
     private Connection conn;
     private PreparedStatement ps;
@@ -21,7 +21,7 @@ public class SettingDAO {
     public SettingDAO() {
         try {
             // Initialize the connection in the constructor
-            conn = new DBContext().getConnection();
+            conn = getConnection();
         } catch (Exception ex) {
             Logger.getLogger(SettingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

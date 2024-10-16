@@ -42,7 +42,7 @@
 
                         <c:if test="${sessionScope.user == null}">
                             <div>
-                                <a href="login">
+                                <a href="${pageContext.request.contextPath}/login">
                                     <i class="fa fa-user-o"></i>
                                     <span>Login</span>
                                 </a>
@@ -63,8 +63,8 @@
                                     </button>
                                     <div class="custom-dropdown-content" id="customDropdownContent">
                                         <a href="${pageContext.request.contextPath}/common/profile" class="custom-dropdown-item">Profile</a>
-                                        <a href="#" class="custom-dropdown-item">Cart</a>
-                                        <a href="#" class="custom-dropdown-item">My order</a>
+                                        <a href="${pageContext.request.contextPath}/public/cart" class="custom-dropdown-item">Cart</a>
+                                        <a href="${pageContext.request.contextPath}/customer/my-order" class="custom-dropdown-item">My order</a>
                                         <a href="${pageContext.request.contextPath}/logout" class="custom-dropdown-item">Logout</a>
                                     </div>
                                 </div>
