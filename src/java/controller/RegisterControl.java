@@ -6,6 +6,7 @@ package controller;
 
 import DAO.UserDAO;
 import Model.User;
+import Utils.Config;
 import Utils.EmailService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -120,7 +121,7 @@ public class RegisterControl extends HttpServlet {
             // Set register info session
             User user = new User();
             user.setEmail(email);
-            user.setPassword(password);
+            user.setPassword(Config.md5(password));
             user.setFullname(fullName);
             user.setGender(gender ? "Male" : "Female");
             user.setAddress(address);
