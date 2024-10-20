@@ -596,31 +596,15 @@
                                     }
 
                                     function addToCart(id) {
-                                        let quantity = document.getElementById('quantity').value;
-                                        var listTopping = document.getElementsByClassName('select-topping');
-                                        let toppings = '';
-                                        for (let i = 0; i < listTopping.length; i++) {
-                                            if (listTopping[i].checked) {
-                                                if (i !== 0) {
-                                                    toppings += ',';
-                                                }
-                                                toppings += listTopping[i].value;
-
-                                            }
+                                        if(${sessionScope.user == null}){
+                                            window.alert('You need to login to add cart');
+                                            return;
                                         }
-
-
-
-                                        console.log(toppings);
-
-                                        fetch('add-cart?id=' + id + '&quantity=' + quantity + '&toppings=' + toppings);
+                                        let quantity = document.getElementById('quantity').value;
+                                        fetch('add-cart?id=' + id + '&quantity=' + quantity);
                                         window.alert('Thêm thành công');
                                     }
 
-                                    function changeSize(select, productID) {
-                                        let value = select.value;
-                                        window.location.href = 'product-detail?pdid=' + value + '&id=' + productID;
-                                    }
         </script>
     </body>
 </html>
