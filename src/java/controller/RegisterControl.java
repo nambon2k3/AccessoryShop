@@ -200,7 +200,7 @@ public class RegisterControl extends HttpServlet {
     private boolean isValidEmail(String email) {
         // Implement your validation logic for email format and length
         // For example, you can use a regular expression for a basic email format check
-        return email.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$");
+        return email.matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$");
     }
 
     private boolean isValidRetypePassword(String password, String retypePassword) {
