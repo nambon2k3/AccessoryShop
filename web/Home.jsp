@@ -505,6 +505,10 @@
             }
 
             function addToCart(id) {
+                if(${sessionScope.user == null}){
+                    window.alert('You need to login to add cart');
+                    return;
+                }
                 fetch('public/add-cart?id=' + id + '&quantity=1');
                 window.alert('Thêm thành công');
             }
