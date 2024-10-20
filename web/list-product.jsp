@@ -442,6 +442,10 @@
                                         window.location.href = "product-detail?id=" + id;
                                     }
                                     function addToCart(id) {
+                                        if(${sessionScope.user == null}){
+                                            window.alert('You need to login to add cart');
+                                            return;
+                                        }
                                         fetch('add-cart?id=' + id + '&quantity=1');
                                         window.alert('Thêm thành công');
                                     }
