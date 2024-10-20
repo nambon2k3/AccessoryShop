@@ -118,7 +118,7 @@
                                     </div>
                                 </td>
                                 <td class="item-price">
-                                    <c:if test="${item.productDetail.discount != null || item.productDetail.discount != 0}">
+                                    <c:if test="${item.productDetail.discount != null && item.productDetail.discount != 0}">
                                         $${item.productDetail.price * (100.0- item.productDetail.discount)/100}
                                         <c:set value="${total + item.productDetail.price * (100.0- item.productDetail.discount)/100}" var="total"/>
                                     </c:if>
@@ -136,7 +136,7 @@
                                     </div>
                                 </td>
                                 <td class="item-total">
-                                    <c:if test="${item.productDetail.discount != null || item.productDetail.discount != 0}">
+                                    <c:if test="${item.productDetail.discount != null && item.productDetail.discount != 0}">
                                         $${item.quantity * (item.productDetail.price * (100.0- item.productDetail.discount)/100)}
                                     </c:if>
                                     <c:if test="${item.productDetail.discount == null || item.productDetail.discount == 0}">
@@ -165,7 +165,7 @@
                 <div class="cart-summary">
                     <p class="total-price">Total: <c:set var="totalPrice" value="0" />
                         <c:forEach var="item" items="${cartItemsFull}">
-                            <c:if test="${item.productDetail.discount != null || item.productDetail.discount != 0}">
+                            <c:if test="${item.productDetail.discount != null && item.productDetail.discount != 0}">
                                 <c:set var="totalPrice" value="${totalPrice + item.quantity * (item.productDetail.price * (100.0- item.productDetail.discount)/100)}" />
                             </c:if>
                             <c:if test="${item.productDetail.discount == null || item.productDetail.discount == 0}">
