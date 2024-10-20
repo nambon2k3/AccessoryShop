@@ -48,7 +48,7 @@
                                 </a>
                             </div> 
                             <div>
-                                <a href="login-staff">
+                                <a href="${pageContext.request.contextPath}/login-staff">
                                     <i class="fa fa-user-o"></i>
                                     <span>Login staff</span>
                                 </a>
@@ -57,6 +57,7 @@
 
                         <c:if test="${sessionScope.user != null}">
                             <div class="custom-user-profile">
+                                <span style="color: #fff">Welcome ${sessionScope.user.fullname}</span>
                                 <div class="custom-dropdown">
                                     <button class="custom-dropbtn" id="custom-dropbtn">
                                         <img src="${sessionScope.user.avatar}" alt="User Profile" class="custom-user-image" id="customUserImage">

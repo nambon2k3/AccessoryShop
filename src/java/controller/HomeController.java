@@ -26,7 +26,7 @@ public class HomeController extends HttpServlet {
     throws ServletException, IOException {
         
         request.setAttribute("sliders", new SliderDAO().getAllSliders());
-        request.setAttribute("products", new ProductDAO().homePage());
+        request.setAttribute("products", new ProductDAO().listProductsPage("", "", 0, 99999, 12, 1, "ASC", "ASC"));
         request.setAttribute("posts", new PostDAO().homePage());
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     } 

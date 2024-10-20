@@ -67,7 +67,7 @@
 
                 <div class="form-group mr-2  col-2">
                     <input class="form-control me-2 mb-4" type="number" name="minPrice" placeholder="Min Price" value="${minPrice}">
-                    
+
                 </div>
                 <div class="form-group mr-2  col-2">
                     <input class="form-control me-2 mb-4" type="number" name="maxPrice" placeholder="Max Price" value="${maxPrice}">
@@ -95,7 +95,7 @@
                 <tbody>
                     <c:forEach var="product" items="${productList}">
                         <tr>
-                            <td>${product.productId}</td>
+                            <td>${product.productDetail.productDetailId}</td>
                             <td style="width: 20%" class="text-center"><img class="w-50 rounded" src="${product.thumb}"></td>
                             <td>${product.productName}</td>
                             <td>${product.categoryName}</td>
@@ -149,7 +149,7 @@
                         <!-- Modal Body -->
                         <div class="modal-body">
                             <!-- Edit Product Form -->
-                            <form action="product" method="post">
+                            <form action="product" method="post" onsubmit="checkSubmit(event, this)">
                                 <!-- Hidden Field -->
                                 <input type="hidden" name="action" value="update">
                                 <input type="hidden" name="productId" value="${product.productId}">
@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="productName">Product Name</label>
-                                    <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" required>
+                                    <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" required oninput="inputProductName(this)">
                                 </div>
                                 <div class="form-group d-none">
                                     <label for="categoryName">Category</label>
@@ -176,13 +176,13 @@
                                     <input type="text" class="form-control" id="createdBy" name="createdBy" value="${product.createdBy}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="productName">Price</label>
-                                    <input type="text" class="form-control" id="price" name="price" value="${product.productDetail.price}" required>
+                                    <label for="price">Price</label>
+                                    <input type="number" class="form-control" id="price" name="price" value="${product.productDetail.price}" required min="0">
                                 </div>
-                                
+
                                 <div class="form-group">
-                                    <label for="productName">Quantity</label>
-                                    <input type="text" class="form-control" id="quantity" name="quantity" value="${product.productDetail.stock}">
+                                    <label for="quantity">Quantity</label>
+                                    <input type="number" class="form-control" id="quantity" name="quantity" value="${product.productDetail.stock}" min="0" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="isDeleted">Is Deleted</label>
@@ -271,7 +271,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="addProductForm" action="product" method="post">
+                    <form id="addProductForm" action="product" method="post" onsubmit="checkSubmit(event, this)">
                         <input type="hidden" name="action" value="add">
                         <div class="modal-body">
                             <div class="form-group">
@@ -282,7 +282,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="productName">Product Name</label>
-                                <input type="text" class="form-control" id="productName" name="productName" required>
+                                <input type="text" class="form-control" id="productName" name="productName" required oninput="inputProductName(this)">
                             </div>
                             <div class="form-group">
                                 <label for="categoryId">Category</label>
@@ -294,11 +294,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="price">Price</label>
-                                <input type="text" class="form-control" id="price" name="price" required>
+                                <input type="number" class="form-control" id="price" name="price" required min="0">
                             </div>
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <input type="text" class="form-control" id="quantity" name="quantity" value="0">
+                                <input type="number" class="form-control" id="quantity" name="quantity" value="0" min="0">
                             </div>
                             <div class="form-group">
                                 <label for="description">Description</label>
@@ -344,6 +344,36 @@
         </script>
 
         <script>
+            function checkSubmit(event, form) {
+                // Lấy trường input trong form hiện tại
+                let productNameInput = form.querySelector('input[name="productName"]');
+                console.log("Product Name Input Value:", productNameInput.value);
+
+                // Reset custom validity trước khi kiểm tra
+                productNameInput.setCustomValidity('');
+
+                // Kiểm tra xem input có rỗng hay không
+                if (productNameInput.value.trim().length == 0) {
+                    productNameInput.setCustomValidity('Please provide a product name.'); // Thiết lập thông báo lỗi tùy chỉnh
+                }
+
+                // Kiểm tra tính hợp lệ của input
+                if (!productNameInput.checkValidity()) {
+                    console.log("Form is invalid, preventing submit.");
+                    event.preventDefault(); // Ngăn chặn việc gửi form
+                    productNameInput.reportValidity(); // Hiển thị thông báo lỗi
+                } else {
+                    console.log("Form is valid, proceeding with submit.");
+                    productNameInput.setCustomValidity(''); // Reset thông báo lỗi nếu hợp lệ
+                    form.submit(); // Submit form nếu hợp lệ
+                }
+            }
+            
+            function inputProductName(input){
+                input.setCustomValidity('');
+            }
+
+
             function updateImage(sliderId) {
                 let fileInput = document.getElementById(`imageFile` + sliderId);
                 let image = document.getElementById(`image` + sliderId);
@@ -353,10 +383,10 @@
                 // check file uploaded
                 if (fileInput.files && fileInput.files[0]) {
                     const file = fileInput.files[0];
-                    const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
+                    const maxSize = 1024 * 1024; // 2 MB in bytes
 
                     if (file.size > maxSize) {
-                        alert("The selected file is too large. Please select a file smaller than 2 MB.");
+                        alert("The selected file is too large. Please select a file smaller than 1 MB.");
                         fileInput.value = ''; // Clear the file input
                         return;
                     }

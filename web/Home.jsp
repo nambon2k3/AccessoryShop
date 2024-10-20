@@ -245,8 +245,8 @@
                                                         <button class="quick-view" onclick="productDetail(${p.productId})"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
                                                     </div>
                                                 </div>
-                                                <div class="add-to-cart">
-                                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                                <div class="add-to-cart" onclick="addToCart(`${p.productDetail.productDetailId}`)">
+                                                    <button class="add-to-cart-btn" >add to cart</button>
                                                 </div>
                                             </div>
 
@@ -500,8 +500,17 @@
                                     });
         </script>
         <script>
-            function productDetail(id){
-                window.location.href = "public/product-detail?id="+id;
+            function productDetail(id) {
+                window.location.href = "public/product-detail?id=" + id;
+            }
+
+            function addToCart(id) {
+                if(${sessionScope.user == null}){
+                    window.alert('You need to login to add cart');
+                    return;
+                }
+                fetch('public/add-cart?id=' + id + '&quantity=1');
+                window.alert('Thêm thành công');
             }
         </script>
     </body>
