@@ -6,6 +6,7 @@ package controller;
 
 import DAO.UserDAO;
 import Model.User;
+import Utils.Config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -65,7 +66,7 @@ public class NewPasswordControl extends HttpServlet {
 
                 if (password.equals(retypePassword)) {
 
-                    user.setPassword(password);
+                    user.setPassword(Config.md5(password));
                     new UserDAO().updateUser(user);
                     msg = "Reset password success";
                     request.getSession().removeAttribute(email + "_reset_otp");
@@ -106,6 +107,3 @@ public class NewPasswordControl extends HttpServlet {
             System.out.println("Error parsing date: " + e.getMessage());
             return false;
         }
-    }
-
-}
