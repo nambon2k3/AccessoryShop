@@ -6,6 +6,7 @@ package controller;
 
 import DAO.UserDAO;
 import Model.User;
+import Utils.Config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,10 +15,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author anhdu
- */
 @WebServlet(name = "LoginControl", urlPatterns = {"/login"})
 public class LoginControl extends HttpServlet {
 
@@ -67,9 +64,10 @@ public class LoginControl extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
+        String MD5_Password = Config.md5(password);
+        
         UserDAO userDAO = new UserDAO();
-        User user = userDAO.loginUser(email, password);
+        User user = userDAO.loginUser(email, MD5_Password);
 
         if (user != null) {
             // save user info to session
