@@ -220,14 +220,18 @@
             </div>
         </form>
         <script>
+            let form = document.querySelector('form');
+
             function validateFullName() {
                 var fullNameInput = document.getElementById('fullName');
                 var fullNameError = document.getElementById('fullNameError');
 
-                if (fullNameInput.value.trim().length < 8) {
-                    fullNameError.textContent = 'Full Name must be more than 8 characters';
+                if (fullNameInput.value.trim().length == 0) {
+                    fullNameError.textContent = 'Name cannot empty';
+                    return false;
                 } else {
                     fullNameError.textContent = '';
+                    return true;
                 }
             }
 
@@ -238,8 +242,10 @@
 
                 if (!emailRegex.test(emailInput.value)) {
                     emailError.textContent = 'Invalid email address';
+                    return false;
                 } else {
                     emailError.textContent = '';
+                    return true;
                 }
             }
 
@@ -249,8 +255,10 @@
 
                 if (passwordInput.value.trim().length < 8) {
                     passwordError.textContent = 'Password must be more than 8 characters';
+                    return false;
                 } else {
                     passwordError.textContent = '';
+                    return true;
                 }
             }
 
@@ -261,8 +269,10 @@
 
                 if (retypePasswordInput.value !== passwordInput.value) {
                     retypePasswordError.textContent = 'Passwords do not match';
+                    return false;
                 } else {
                     retypePasswordError.textContent = '';
+                    return true;
                 }
             }
 
@@ -272,9 +282,14 @@
                 var phoneRegex = /^\d+$/;
 
                 if (phoneInput.value.trim() === '' || !phoneRegex.test(phoneInput.value)) {
-                    phoneError.textContent = 'Invalid phone number. Please enter digits only.';
+                    phoneError.textContent = 'Please enter digits only.';
+                    return false;
+                } else if (phoneInput.value.trim().length < 10) {
+                    phoneError.textContent = 'Phone number needs 10 digits';
+                    return false;
                 } else {
                     phoneError.textContent = '';
+                    return true;
                 }
             }
 
@@ -284,10 +299,36 @@
 
                 if (addressInput.value.trim() === '') {
                     addressError.textContent = 'Address cannot be empty';
+                    return false;
                 } else {
                     addressError.textContent = '';
+                    return true;
                 }
             }
+
+// Global validation function to prevent form submission if invalid
+            form.addEventListener('submit', function (event) {
+                var isValid = true;
+
+                if (!validateFullName())
+                    isValid = false;
+                if (!validateEmail())
+                    isValid = false;
+                if (!validatePassword())
+                    isValid = false;
+                if (!validateRetypePassword())
+                    isValid = false;
+                if (!validatePhone())
+                    isValid = false;
+                if (!validateAddress())
+                    isValid = false;
+
+                // Prevent form submission if any validation fails
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
         </script>
     </body>
 </html>
