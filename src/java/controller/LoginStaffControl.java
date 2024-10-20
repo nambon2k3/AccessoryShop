@@ -6,6 +6,7 @@ package controller;
 
 import DAO.StaffDAO;
 import Model.Staff;
+import Utils.Config;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -67,9 +68,10 @@ public class LoginStaffControl extends HttpServlet {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String MD5_Password = Config.md5(password);
 
         StaffDAO staffDAO = new StaffDAO();
-        Staff staff = staffDAO.loginStaff(email, password);
+        Staff staff = staffDAO.loginStaff(email, MD5_Password);
 
         if (staff != null) {
                 
