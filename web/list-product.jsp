@@ -294,7 +294,9 @@
                                                     <button type="button" class="btn quick-view" onclick="productDetail(${product.productId})"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
                                                 </div>
                                             </div>
-
+                                            <div class="add-to-cart" onclick="addToCart(`${product.productDetail.productDetailId}`)">
+                                                <button type="button" class="add-to-cart-btn" >add to cart</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -436,9 +438,13 @@
         <script src="${pageContext.request.contextPath}/js2/jquery.zoom.min.js"></script>
         <script src="${pageContext.request.contextPath}/js2/main.js"></script>
         <script>
-            function productDetail(id){
-                window.location.href = "product-detail?id="+id;
-            }
+                                    function productDetail(id) {
+                                        window.location.href = "product-detail?id=" + id;
+                                    }
+                                    function addToCart(id) {
+                                        fetch('add-cart?id=' + id + '&quantity=1');
+                                        window.alert('Thêm thành công');
+                                    }
         </script>
 
     </body>
