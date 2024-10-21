@@ -165,11 +165,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="categoryName">Category</label>
-                                    <select class="form-control" name="categoryName" id="categoryName">
-                                        <c:forEach items="${categories}" var="category">
-                                            <option value="${category.ID}" <c:if test="${categoryId == category.ID}">selected</c:if>>${category.categoryName}</option>
-                                        </c:forEach>
-                                    </select>
+                                    <select class="form-control" id="categoryName" name="categoryName" required>
+                                    <c:forEach var="category" items="${categories}">
+                                        <option value="${category.ID}" ${product.categoryId == category.ID ? 'selected' : ''}>${category.categoryName}</option>
+                                    </c:forEach>
+                                </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
