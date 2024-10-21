@@ -706,14 +706,15 @@ public class ProductDAO extends  DBContext{
 
     public boolean updateProduct(Product product) {
         boolean success = false;
-        String query = "UPDATE Product SET Name = ?, Description = ?, IsDeleted = ? "
+        String query = "UPDATE Product SET Name = ?, Description = ?, IsDeleted = ?, CategoryID = ?  "
                 + "WHERE ID = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, product.getProductName());
             statement.setString(2, product.getDescription());
             statement.setInt(3, product.getIsDeleted() ? 1 : 0);
-            statement.setInt(4, product.getProductId());
+            statement.setInt(4, product.getCategoryId());
+            statement.setInt(5, product.getProductId());
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
