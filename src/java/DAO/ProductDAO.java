@@ -921,6 +921,7 @@ public class ProductDAO extends  DBContext{
                 productDetail.setPrice(rs.getDouble("price"));
                 productDetail.setImageURL(rs.getString("ImageURL"));
                 productDetail.setDiscount(rs.getInt("discount"));
+                productDetail.setStock(rs.getInt("Stock"));
 
                 product.setProductDetail(productDetail);
 
