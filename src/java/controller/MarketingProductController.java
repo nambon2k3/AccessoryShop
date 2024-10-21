@@ -131,7 +131,7 @@ public class MarketingProductController extends HttpServlet {
         Product product = new Product();
         product.setProductId(productId);
         product.setProductName(productName);
-        product.setCategoryName(categoryName);
+        product.setCategoryId(Integer.parseInt(categoryName));
         product.setDescription(description);
         product.setIsDeleted(isDeleted);
 
