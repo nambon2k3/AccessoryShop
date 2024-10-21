@@ -163,9 +163,13 @@
                                     <label for="productName">Product Name</label>
                                     <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}" required oninput="inputProductName(this)">
                                 </div>
-                                <div class="form-group d-none">
+                                <div class="form-group">
                                     <label for="categoryName">Category</label>
-                                    <input type="text" class="form-control" id="categoryName" name="categoryName" value="${product.categoryName}" required>
+                                    <select class="form-control" name="categoryName" id="categoryName">
+                                        <c:forEach items="${categories}" var="category">
+                                            <option value="${category.ID}" <c:if test="${categoryId == category.ID}">selected</c:if>>${category.categoryName}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Description</label>
@@ -332,7 +336,8 @@
                                             "searching": false,
                                             "ordering": true,
                                             "info": false,
-                                            "autoWidth": false
+                                            "autoWidth": false,
+                                            "order": [[0, 'desc']]
                                         });
                                     });
 
@@ -368,8 +373,8 @@
                     form.submit(); // Submit form nếu hợp lệ
                 }
             }
-            
-            function inputProductName(input){
+
+            function inputProductName(input) {
                 input.setCustomValidity('');
             }
 
