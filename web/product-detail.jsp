@@ -226,12 +226,12 @@
                             <!--<p>Description</p>-->
 
                             <div class="product-options">
-<!--                                <label>
-                                    Size
-                                    <select class="input-select">
-                                        <option value="0">X</option>
-                                    </select>
-                                </label>-->
+                                <!--                                <label>
+                                                                    Size
+                                                                    <select class="input-select">
+                                                                        <option value="0">X</option>
+                                                                    </select>
+                                                                </label>-->
                                 <!--                                <label>
                                                                     Color
                                                                     <select class="input-select">
@@ -600,11 +600,14 @@
                                             window.alert('You need to login to add cart');
                                             return;
                                         }
+                                        if (${product.productDetail.stock - product.productDetail.hold} == 0) {
+                                            alert('In the store is out of stock');
+                                            return;
+                                        }
                                         let quantity = document.getElementById('quantity').value;
                                         fetch('add-cart?id=' + id + '&quantity=' + quantity);
                                         window.alert('Thêm thành công');
                                     }
-
         </script>
     </body>
 </html>
