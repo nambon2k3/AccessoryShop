@@ -142,7 +142,8 @@ public class OrderDAO {
                 String phone = rs.getString("Phone");
                 String status = rs.getString("Status");
                 boolean isDeleted = rs.getBoolean("IsDeleted");
-                Timestamp createdAt = rs.getTimestamp("CreatedAt");
+                String _createdAt = rs.getString("CreatedAt");
+                Timestamp createdAt = convert(_createdAt);
                 int createdBy = rs.getInt("CreatedBy");
 
                 String paymentMethod = rs.getString("paymentMethod");
@@ -159,6 +160,17 @@ public class OrderDAO {
         }
         return orders;
     }
+    
+    private Timestamp convert(String time){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        
+        // Chuyển đổi chuỗi sang LocalDateTime
+        LocalDateTime localDateTime = LocalDateTime.parse(time, formatter);
+        
+        // Chuyển đổi LocalDateTime sang timestamp (mili giây)
+        return Timestamp.valueOf(localDateTime);
+    }
+
 
     public boolean autoCanceled() {
         try {
