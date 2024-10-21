@@ -294,7 +294,7 @@
                                                     <button type="button" class="btn quick-view" onclick="productDetail(${product.productId})"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
                                                 </div>
                                             </div>
-                                            <div class="add-to-cart" onclick="addToCart(`${product.productDetail.productDetailId}`)">
+                                            <div class="add-to-cart" onclick="addToCart(`${product.productDetail.productDetailId}`, ${product.productDetail.stock - product.productDetail.hold})">
                                                 <button type="button" class="add-to-cart-btn" >add to cart</button>
                                             </div>
                                         </div>
@@ -441,13 +441,17 @@
                                     function productDetail(id) {
                                         window.location.href = "product-detail?id=" + id;
                                     }
-                                    function addToCart(id) {
+                                    function addToCart(id, stock) {
                                         if(${sessionScope.user == null}){
                                             window.alert('You need to login to add cart');
                                             return;
                                         }
+                                        if (stock == 0) {
+                                            alert('In the store is out of stock');
+                                            return;
+                                        }
                                         fetch('add-cart?id=' + id + '&quantity=1');
-                                        window.alert('Thêm thành công');
+                                        window.alert('Add cart success');
                                     }
         </script>
 
