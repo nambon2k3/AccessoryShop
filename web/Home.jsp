@@ -510,7 +510,7 @@
                     return;
                 }
                 if (stock == 0) {
-                    alert(stock);
+                    alert('In the store is out of stock');
                     return;
                 }
                 fetch('public/add-cart?id=' + id + '&quantity=1');
