@@ -112,6 +112,64 @@ public class CartDAO {
         }
         return carts;
     }
+    public List<Cart> getAllCarts2(int userId, int page, int pageSize, String searchQuery, String category, List<Integer> selectedIds) {
+        List<Cart> carts = new ArrayList<>();
+        int offset = (page - 1) * pageSize;
+
+        try {
+            if (category == null) {
+                category = "";
+            }
+            if (searchQuery == null) {
+                searchQuery = "";
+            }
+
+            // Xây dựng điều kiện lọc dựa trên danh sách ID sản phẩm đã chọn
+            String selectedIdsCondition = "";
+            if (selectedIds != null && !selectedIds.isEmpty()) {
+                selectedIdsCondition = "AND c.productDetailId IN ("
+                        + selectedIds.stream().map(String::valueOf).collect(Collectors.joining(",")) + ")";
+            }
+
+            // Câu truy vấn với điều kiện lọc theo danh sách ID, phân trang, tìm kiếm và lọc
+            String query = "SELECT c.id, c.userId, c.productDetailId, c.quantity, c.isDeleted, c.createdAt, c.createdBy "
+                    + "FROM `swp-online-shop`.`Cart` c "
+                    + "JOIN `swp-online-shop`.`ProductDetail` pd ON c.ProductDetailID = pd.ID "
+                    + "JOIN `swp-online-shop`.`Product` p ON p.ID = pd.ProductID "
+                    + "JOIN `swp-online-shop`.`Category` cat ON p.CategoryID = cat.ID "
+                    + "WHERE c.userId = ? "
+                    + selectedIdsCondition + " "
+                    + "AND cat.Name LIKE ? "
+                    + "AND p.Name LIKE ? "
+                    + "ORDER BY c.createdAt DESC "
+                    + "LIMIT ?, ?";
+
+            stmt = connection.prepareStatement(query);
+            stmt.setInt(1, userId);
+            stmt.setString(2, "%" + category + "%");
+            stmt.setString(3, "%" + searchQuery + "%");
+            stmt.setInt(4, offset);
+            stmt.setInt(5, pageSize);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int productDetailId = rs.getInt("productDetailId");
+                int quantity = rs.getInt("quantity");
+                boolean isDeleted = rs.getBoolean("isDeleted");
+                Timestamp createdAt = rs.getTimestamp("createdAt");
+                int createdBy = rs.getInt("createdBy");
+
+                Cart cart = new Cart(id, userId, productDetailId, quantity, isDeleted, new Date(createdAt.getTime()), createdBy);
+                carts.add(cart);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return carts;
+    }
+
 
     public int getCartCount(int userId, String searchQuery, String category) {
         int count = 0;
