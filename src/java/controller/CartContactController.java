@@ -77,10 +77,14 @@ public class CartContactController extends HttpServlet {
         String category = request.getParameter("category");
         String[] productID = request.getParameterValues("id");
 
-// Chuyển đổi mảng String thành List<Integer>
-        List<Integer> selectedIds = Arrays.stream(productID)
+        // Chuyển đổi mảng String thành List<Integer>
+        List<Integer> selectedIdsList  = Arrays.stream(productID)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+        
+        String selectedIds = selectedIdsList.stream()
+        .map(String::valueOf)
+        .collect(Collectors.joining(","));
 
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
@@ -89,11 +93,11 @@ public class CartContactController extends HttpServlet {
         CartDAO cartDAO = new CartDAO();
         ProductDAO productDAO = new ProductDAO();
 
-        List<Cart> cartItemsFull = cartDAO.getAllCarts(userId);
-        List<Cart> cartItems = cartDAO.getAllCarts2(userId, page, PAGE_SIZE, searchQuery, category, selectedIds);
+        List<Cart> cartItemsFull = cartDAO.getAllCarts(userId, selectedIdsList );
+        List<Cart> cartItems = cartDAO.getAllCarts2(userId, page, PAGE_SIZE, searchQuery, category, selectedIdsList );
         List<Category> categories = new PostDAO().getUniqueCategories();
 
-        int totalCartItems = cartDAO.getCartCount(userId, searchQuery, category);
+        int totalCartItems = cartDAO.getCartCount(userId, searchQuery, category,selectedIdsList );
         int totalPages = (int) Math.ceil((double) totalCartItems / PAGE_SIZE);
 
         request.setAttribute("cartItemsFull", cartItemsFull);
@@ -102,6 +106,7 @@ public class CartContactController extends HttpServlet {
         request.setAttribute("currentPage", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("isSuccess", request.getParameter("isSuccess"));
+        request.setAttribute("selectedIds", selectedIds);
         request.getRequestDispatcher("/cart-contact.jsp").forward(request, response);
     }
 
