@@ -189,6 +189,8 @@
                     <input class="form-control" id="amount" name="amount" type="hidden" readonly value="${totalPrice}" />
                     <input type="hidden" Checked="True" id="bankCode" name="bankcode" value="NCB">
                     <input type="hidden" id="language" Checked="True" name="language" value="vn">
+                    <input type="hidden" id="selectedProductIds" name="selectedProductIds" value="${selectedIds != null ? selectedIds : ""}">
+
                     <!-- Customer Information Section -->
                     <div class="form-section">
                         <h3>Customer Information</h3>
