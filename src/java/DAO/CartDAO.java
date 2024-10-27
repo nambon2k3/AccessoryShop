@@ -336,12 +336,16 @@ public class CartDAO {
                 int currentQuantity = rs.getInt("quantity");
                 int newQuantity = currentQuantity + quantity;
 
-                String updateSQL = "UPDATE `swp-online-shop`.`Cart` SET quantity = ? WHERE userId = ? AND productDetailId = ? AND isDeleted = 0";
-                PreparedStatement updateStmt = connection.prepareStatement(updateSQL);
-                updateStmt.setInt(1, newQuantity);
-                updateStmt.setInt(2, userId);
-                updateStmt.setInt(3, productDetailId);
-                updateStmt.executeUpdate();
+                ProductDetail productDetail = new ProductDAO().getProductDetailById(productDetailId);
+                if (productDetail.getStock() >= newQuantity) {
+                    String updateSQL = "UPDATE `swp-online-shop`.`Cart` SET quantity = ? WHERE userId = ? AND productDetailId = ? AND isDeleted = 0";
+                    PreparedStatement updateStmt = connection.prepareStatement(updateSQL);
+                    updateStmt.setInt(1, newQuantity);
+                    updateStmt.setInt(2, userId);
+                    updateStmt.setInt(3, productDetailId);
+                    updateStmt.executeUpdate();
+                }
+
             } else {
                 // Item does not exist, insert a new record
                 String insertSQL = "INSERT INTO `swp-online-shop`.`Cart` (userId, productDetailId, quantity, isDeleted, createdAt, createdBy) VALUES (?, ?, ?, 0, ?, ?)";
