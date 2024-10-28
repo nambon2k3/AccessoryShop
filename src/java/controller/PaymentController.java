@@ -168,29 +168,18 @@ public class PaymentController extends HttpServlet {
         Config.orderID = orderId;
         // Retrieve cart items from session or request (assuming a method getCartItems exists)
         List<Cart> cartItems = new CartDAO().getAllCarts(user.getId(), selectedIdsList);
-        // Insert Order Details
-        if (request.getParameter("mode") != null) {
-            int productDetailId = Integer.parseInt(request.getParameter("productdetailId"));
+
+        for (Cart cartItem : cartItems) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrderId(orderId);
             orderDetail.setCreatedBy(user.getId());
-            orderDetail.setProductDetailId(productDetailId);
-            orderDetail.setQuantity(Integer.parseInt(request.getParameter("quantity")));
+            orderDetail.setProductDetailId(cartItem.getProductDetailId());
+            orderDetail.setQuantity(cartItem.getQuantity());
             new OrderDAO().createOrderDetail(orderDetail);
-        } else {
-            for (Cart cartItem : cartItems) {
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setOrderId(orderId);
-                orderDetail.setCreatedBy(user.getId());
-                orderDetail.setProductDetailId(cartItem.getProductDetailId());
-                orderDetail.setQuantity(cartItem.getQuantity());
-                new OrderDAO().createOrderDetail(orderDetail);
-                if (method.equalsIgnoreCase("COD")) {
-                    new ProductDAO().updateProductDetailQuantity(cartItem.getProductDetailId(), cartItem.getQuantity());
-                }
-            }
-            new CartDAO().clearSelectedCartItems(user.getId(), selectedIdsList);
+            new ProductDAO().updateProductDetailQuantity(cartItem.getProductDetailId(), cartItem.getQuantity());
         }
+        new CartDAO().clearSelectedCartItems(user.getId(), selectedIdsList);
+        
 
         if (method.equalsIgnoreCase("vnpay") || method.equalsIgnoreCase("repay")) {
             respone.sendRedirect(paymentUrl);

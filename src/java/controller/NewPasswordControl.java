@@ -107,3 +107,5 @@ public class NewPasswordControl extends HttpServlet {
             System.out.println("Error parsing date: " + e.getMessage());
             return false;
         }
+    }
+}
