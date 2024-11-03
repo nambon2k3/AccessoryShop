@@ -124,6 +124,7 @@ CREATE TABLE `order` (
   `Notes` longtext COLLATE utf8mb4_general_ci,
   `PaymentMethod` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `TotalCost` float DEFAULT NULL,
+  `shipperId` int,
   PRIMARY KEY (`ID`),
   KEY `UserID` (`UserID`),
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`)

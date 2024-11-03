@@ -94,18 +94,7 @@
                 </div>
                 <!-- Feedbacks -->
                 <div class="col-md-6 p-3">
-                    <h3>Feedbacks</h3>
-                    <p><strong>Average feedback:</strong> ${avgFeedback}</p>
-                    <div class="row">
-                        <c:forEach var="c" items="${categoryList}">
-                            <div class="col-sm-6 col-md-4 mb-4">
-                                <div class="category-item">
-                                    <p><strong>Category:</strong> ${c.categoryName}</p>
-                                    <p><strong>Average Feedback:</strong> ${c.avgFeedback}</p>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -215,19 +204,17 @@
             var customersChart = new Chart(customersCtx, {
                 type: 'bar', // Change chart type to 'bar'
                 data: {
-                    labels: ['User', 'Order', 'Feedback'], // Add 'Feedback' label
+                    labels: ['User', 'Order'], // Add 'Feedback' label
                     datasets: [{
                             label: 'System',
-                            data: [${user_count}, ${order_success + order_pending}, ${feedback_count}], // Use dynamic data
+                            data: [${user_count}, ${order_success + order_pending}], // Use dynamic data
                             backgroundColor: [
                                 'rgba(54, 162, 235, 0.7)',
-                                'rgba(255, 99, 132, 0.7)',
-                                'rgba(75, 192, 192, 0.7)' // Add color for feedback
+                                'rgba(255, 99, 132, 0.7)'
                             ],
                             borderColor: [
                                 'rgba(54, 162, 235, 1)',
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(75, 192, 192, 1)' // Add border color for feedback
+                                'rgba(255, 99, 132, 1)'
                             ],
                             borderWidth: 1
                         }]
@@ -243,45 +230,7 @@
                     }
                 }
             });
-
-            // Feedbacks Chart (Column Chart)
-            //        var feedbacksCtx = document.getElementById('feedbacksChart').getContext('2d');
-            //        var feedbacksChart = new Chart(feedbacksCtx, {
-            //            type: 'bar', // Change chart type to 'bar'
-            //            data: {
-            //                labels: ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'], // Update labels
-            //                datasets: [{
-            //                        label: 'Average Star',
-            //                        data: [2.7, 0.7, 1, 1.2, 4.8], // Example data for demonstration
-            //                        backgroundColor: [
-            //                            'rgba(255, 99, 132, 0.7)',
-            //                            'rgba(255, 159, 64, 0.7)',
-            //                            'rgba(255, 205, 86, 0.7)',
-            //                            'rgba(75, 192, 192, 0.7)',
-            //                            'rgba(54, 162, 235, 0.7)'
-            //                        ],
-            //                        borderColor: [
-            //                            'rgba(255, 99, 132, 1)',
-            //                            'rgba(255, 159, 64, 1)',
-            //                            'rgba(255, 205, 86, 1)',
-            //                            'rgba(75, 192, 192, 1)',
-            //                            'rgba(54, 162, 235, 1)'
-            //                        ],
-            //                        borderWidth: 1
-            //                    }]
-            //            },
-            //            options: {
-            //                responsive: true,
-            //                scales: {
-            //                    yAxes: [{
-            //                            ticks: {
-            //                                beginAtZero: true
-            //                            }
-            //                        }]
-            //                }
-            //            }
-            //        });
-
+            
             var orderTrendCtx = document.getElementById('orderTrendChart').getContext('2d');
             var norderTrendChart = new Chart(orderTrendCtx, {
                 type: 'bar',
