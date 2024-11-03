@@ -240,15 +240,6 @@ public class OrderDAO {
                     + "JOIN `Staff` s on s.ID = o.CreatedBy"
                     + " WHERE o.CreatedAt BETWEEN ? AND ?");
 
-            if (staff.getRole() == 3) {
-                query.append(" AND o.CreatedBy = ");
-                query.append(String.valueOf(staff.getId()));
-            }
-
-            if (staff.getRole() == 6) {
-                query.append(" AND o.Status IN  ");
-                query.append(String.valueOf("('Approved', 'Packaging', 'Delivering', 'Rejected', 'Success', 'Close', 'Canceled', 'Request cancel', 'Failed')"));
-            }
             
             if (idd != null && !idd.isEmpty()) {
                 String condition = " AND o.ID = " + idd;
@@ -322,15 +313,6 @@ public class OrderDAO {
                     + "JOIN `Staff` s on s.ID = o.CreatedBy"
                     + " WHERE o.CreatedAt BETWEEN ? AND ?");
 
-            if (staff.getRole() == 3) {
-                query.append(" AND o.CreatedBy = ");
-                query.append(String.valueOf(staff.getId()));
-            }
-
-            if (staff.getRole() == 6) {
-                query.append(" AND o.Status IN  ");
-                query.append(String.valueOf("('Approved', 'Packaging', 'Delivering', 'Rejected', 'Success', 'Close', 'Canceled', 'Request cancel', 'Failed')"));
-            }
 
             if (salesperson != null && !salesperson.isEmpty()) {
                 String condition = " AND s.fullname LIKE '%" + salesperson + "%' ";
@@ -639,29 +621,6 @@ public class OrderDAO {
 
             preparedStatement.setString(1, status);
             preparedStatement.setInt(2, orderId);
-
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows > 0) {
-                isSuccess = true;
-            }
-        } catch (SQLException e) {
-            System.out.println("updateOrderStatus: " + e.getMessage());
-        }
-
-        return isSuccess;
-    }
-
-    public boolean updateOrderStatus(String status, int orderId, String notes, String saleId) {
-        String UPDATE_ORDER_SQL = "UPDATE `Order`  SET status = ?, notes = ?, createdBy = ? WHERE id = ?";
-        boolean isSuccess = false;
-        try (
-                PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_ORDER_SQL)) {
-
-            preparedStatement.setString(1, status);
-            preparedStatement.setString(2, notes);
-            preparedStatement.setString(3, saleId);
-            preparedStatement.setInt(4, orderId);
 
             int affectedRows = preparedStatement.executeUpdate();
 

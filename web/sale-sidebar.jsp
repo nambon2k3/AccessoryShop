@@ -41,7 +41,6 @@
         margin-left: 5%;
         margin-right: 5%;
     }
-
     .sidebar {
         display: flex;
         flex-direction: column;
@@ -53,8 +52,8 @@
     }
 
     .chart-container {
-        padding-left: 5%;
-        padding-right: 5%;
+        padding-left: 15%;
+        padding-right: 15%;
     }
 </style>
 
@@ -62,9 +61,7 @@
 <nav class="sidebar">
     <ul>
         <li><a href="dashboard"><i class="fas fa-chart-line mr-2"></i>Dashboard</a></li>
-        <li><a href="product"><i class="fas fa-tshirt mr-2"></i>Product</a></li>
-        <li><a href="user"><i class="fas fa-user-friends mr-2"></i>Customers</a></li>
-        <li><a href="list-post"><i class="fas fa-images mr-2"></i>List Post</a></li>
+        <li><a href="sale-order"><i class="fas fa-shopping-cart mr-2"></i>Orders</a></li>
     </ul>
     <ul class="logout">
         <li class="text-light"><i class="fas fa-users mr-2"></i>${sessionScope.staff.fullname}</li>

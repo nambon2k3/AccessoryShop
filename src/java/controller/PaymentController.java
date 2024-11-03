@@ -147,6 +147,7 @@ public class PaymentController extends HttpServlet {
         order.setAddress(address);
         order.setPhone(phone);
         order.setNotes(notes);
+        order.setTotalCost(amount_d);
         if (method.equalsIgnoreCase("vnpay") || method.equalsIgnoreCase("repay") || method.equalsIgnoreCase("COD")) {
             order.setFullname(user.getFullname());
             order.setAddress(user.getAddress());
