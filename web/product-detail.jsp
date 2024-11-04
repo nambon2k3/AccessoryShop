@@ -171,6 +171,9 @@
                         <ul class="main-nav nav navbar-nav">
                             <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/public/list-product">All products</a></li>
+                        <li><a href="#">Hot deals</a></li>
+                        <li><a href="#">Laptops</a></li>
+                        <li><a href="#">Accessories</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
@@ -196,7 +199,13 @@
 
                     <!-- Product thumb imgs -->
                     <div class="col-md-2  col-md-pull-5">
-                        <img src="${pageContext.request.contextPath}/Image/banner3.png" alt="alt"/>
+                        <div id="product-imgs">
+                            <c:forEach begin="0" end="3" step="1">
+                                <div class="product-preview">
+                                    <img src="${product.productDetail.imageURL}" alt="">
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                     <!-- /Product thumb imgs -->
 
