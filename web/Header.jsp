@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 <header>
 
     <!-- MAIN HEADER -->
@@ -60,7 +61,7 @@
                                 <span style="color: #fff">Welcome ${sessionScope.user.fullname}</span>
                                 <div class="custom-dropdown">
                                     <button class="custom-dropbtn" id="custom-dropbtn">
-                                        <img src="${sessionScope.user.avatar}" alt="User Profile" class="custom-user-image" id="customUserImage">
+                                        <img src="${sessionScope.user.avatar}" alt="User Profile" class="custom-user-image" id="customUserImage" style="width: 20px; height: 20px">
                                     </button>
                                     <div class="custom-dropdown-content" id="customDropdownContent">
                                         <a href="${pageContext.request.contextPath}/common/profile" class="custom-dropdown-item">Profile</a>
@@ -70,6 +71,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <button class="custom-dropbtn">
+                                <a href="${pageContext.request.contextPath}/public/cart"><i class="fa-solid fa-cart-shopping" style="color: black; font-size: 18px"></i></a>
+                            </button>
                         </c:if>
 
                         <!-- Menu Toogle -->
