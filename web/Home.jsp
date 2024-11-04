@@ -167,6 +167,9 @@
                         <ul class="main-nav nav navbar-nav">
                             <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/public/list-product">All products</a></li>
+                        <li><a href="#">Hot deals</a></li>
+                        <li><a href="#">Laptops</a></li>
+                        <li><a href="#">Accessories</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
