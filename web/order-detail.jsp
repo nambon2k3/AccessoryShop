@@ -208,13 +208,6 @@
             <div class="total-cost">
                 <strong>Total Order Price:</strong> $${order.totalCost}
             </div>
-
-            <!-- Order Actions -->
-            <c:if test="${order.status ne 'Close' && order.status ne 'Canceled' && order.status ne 'Failed' && order.status ne 'Success' && order.status ne 'Rejected' && order.status ne 'Delivering'}">
-                <div class="order-actions">
-                    <a href="href="cancel-order?orderId=${order.id}"" class="btn btn-danger btn-cancel">Cancel Order</a>
-                </div>
-            </c:if>
         </div>
 
         <!-- FOOTER -->

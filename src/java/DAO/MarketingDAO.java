@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class MarketingDAO {
 
@@ -168,10 +169,15 @@ public class MarketingDAO {
         try {
             Date start = dateFormat.parse(startDate);
             Date end = dateFormat.parse(endDate);
+            
+            
+            long differenceInMillis = Math.abs(end.getTime() - start.getTime());
+            
+            int dif = (int) TimeUnit.DAYS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
 
             // Ensure the range is no more than 14 days
             calendar.setTime(start);
-            calendar.add(Calendar.DATE, 14);
+            calendar.add(Calendar.DATE, dif);
             Date maxEndDate = calendar.getTime();
             if (end.after(maxEndDate)) {
                 end = maxEndDate;
