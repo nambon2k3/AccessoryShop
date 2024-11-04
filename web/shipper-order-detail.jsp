@@ -138,7 +138,7 @@
                 </table>
             </div>
             <div>
-                <strong>Tổng đơn hàng:</strong>${String.format("%.2f", Double.parseDouble(order.totalCost + totalToppingProducts))}
+                <strong>Total:</strong>${String.format("%.2f", Double.parseDouble(order.totalCost + totalToppingProducts))}
             </div>
         </div>
 
