@@ -173,7 +173,7 @@
                         <li><a href="${pageContext.request.contextPath}/public/list-product">All products</a></li>
                         <li><a href="#">Hot deals</a></li>
                         <li><a href="#">Laptops</a></li>
-                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#footer">Contact</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>

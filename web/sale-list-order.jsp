@@ -61,12 +61,12 @@
                         <label for="orderStatus" class="form-label">Order Status</label>
                         <select id="orderStatus" name="orderStatus" class="form-control">
                             <option value="" ${param.orderStatus == null ? 'selected' : ''}>All</option>
-                            <option value="Close" ${param.orderStatus == 'Close' ? 'selected' : ''}>Close</option>
-                            <option value="Failed" ${param.orderStatus == 'Failed' ? 'selected' : ''}>Failed</option>
+                            <option value="Wait for pay" ${param.orderStatus == 'Wait for pay' ? 'selected' : ''}>Wait for pay</option>
+                            <option value="Approved" ${param.orderStatus == 'Approved' ? 'selected' : ''}>Approved</option>
+                            <option value="Expired" ${param.orderStatus == 'Expired' ? 'selected' : ''}>Expired</option>
                             <option value="Submitted" ${param.orderStatus == 'Submitted' ? 'selected' : ''}>Submitted</option>
-                            <option value="Success" ${param.orderStatus == 'Success' ? 'selected' : ''}>Success</option>
-                            <option value="Request Cancel" ${param.orderStatus == 'Request Cancel' ? 'selected' : ''}>Request Cancel</option>
-                            <option value="Canceled" ${param.orderStatus == 'Canceled' ? 'selected' : ''}>Canceled</option>
+                            <option value="Shipped" ${param.orderStatus == 'Shipped' ? 'selected' : ''}>Shipped</option>
+                            <option value="Delivering" ${param.orderStatus == 'Delivering' ? 'selected' : ''}>Delivering</option>
                         </select>
                     </div>
                     <div class="col-12 mt-2">

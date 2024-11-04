@@ -47,20 +47,13 @@ public class AdminDashboardController extends HttpServlet {
         int orderSuccess = 0;
         int orderCancel = 0;
         int orderPending = 0;
-        orderSuccess += dao.getOrdersByStatus("Close").size();
-        orderSuccess += dao.getOrdersByStatus("Success").size();
-        
         orderPending += dao.getOrdersByStatus("Submitted").size();
         orderPending += dao.getOrdersByStatus("Approved").size();
-        orderPending += dao.getOrdersByStatus("Request cancel").size();
-        orderPending += dao.getOrdersByStatus("Packaging").size();
+        orderSuccess += dao.getOrdersByStatus("Shipped").size();
+        orderCancel += dao.getOrdersByStatus("Expired").size();
         orderPending += dao.getOrdersByStatus("Delivering").size();
         orderPending += dao.getOrdersByStatus("Wait for pay").size();
-        
-        orderCancel += dao.getOrdersByStatus("Rejected").size();
-        orderCancel += dao.getOrdersByStatus("Canceled").size();
-        orderCancel += dao.getOrdersByStatus("Failed").size();
-        
+
         request.setAttribute("order_success", orderSuccess);
         request.setAttribute("order_cancel", orderCancel);
         request.setAttribute("order_pending", orderPending);
@@ -68,19 +61,13 @@ public class AdminDashboardController extends HttpServlet {
         int orderSuccessFilter = 0;
         int orderCancelFilter = 0;
         int orderPendingFilter = 0;
-        orderSuccessFilter += dao.getOrdersByStatusAndDateRange("Close", startDate, endDate).size();
-        orderSuccessFilter += dao.getOrdersByStatusAndDateRange("Success", startDate, endDate).size();
-        
+       
         orderPendingFilter += dao.getOrdersByStatusAndDateRange("Submitted", startDate, endDate).size();
         orderPendingFilter += dao.getOrdersByStatusAndDateRange("Approved", startDate, endDate).size();
-        orderPendingFilter += dao.getOrdersByStatusAndDateRange("Request cancel", startDate, endDate).size();
-        orderPendingFilter += dao.getOrdersByStatusAndDateRange("Packaging", startDate, endDate).size();
+        orderSuccessFilter += dao.getOrdersByStatusAndDateRange("Shipped", startDate, endDate).size();
         orderPendingFilter += dao.getOrdersByStatusAndDateRange("Delivering", startDate, endDate).size();
         orderPendingFilter += dao.getOrdersByStatusAndDateRange("Wait for pay", startDate, endDate).size();
-        
-        orderCancelFilter += dao.getOrdersByStatusAndDateRange("Rejected", startDate, endDate).size();
-        orderCancelFilter += dao.getOrdersByStatusAndDateRange("Canceled", startDate, endDate).size();
-        orderCancelFilter += dao.getOrdersByStatusAndDateRange("Failed", startDate, endDate).size();
+        orderCancelFilter += dao.getOrdersByStatusAndDateRange("Expired", startDate, endDate).size();
         
         request.setAttribute("order_success_filter", orderSuccessFilter);
         request.setAttribute("order_cancel_filter", orderCancelFilter);
@@ -95,9 +82,6 @@ public class AdminDashboardController extends HttpServlet {
         request.setAttribute("user_count", new UserDAO().getAllUsers().size());
         request.setAttribute("user_last", dao.getLastOrderCustomer());
 
-        // Retrieve the count of feedbacks
-        request.setAttribute("feedback_count", new AdminDAO().countFeedback());
-
         // Set start and end dates
         request.setAttribute("startDate", startDate.toString().substring(0, 10));
         request.setAttribute("endDate", endDate.toString().substring(0, 10));
@@ -106,7 +90,6 @@ public class AdminDashboardController extends HttpServlet {
         request.setAttribute("cateCost", cateCost);
         
         request.setAttribute("categoryList", category);
-        request.setAttribute("avgFeedback", new AdminDAO().getAverageFeedbackByCategoryId(-1));
 
         // Forward the request to the JSP
         request.getRequestDispatcher("../admin-dashboard.jsp").forward(request, response);
